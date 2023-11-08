@@ -1,11 +1,16 @@
 const express = require('express');
 const app = express();
+const router = require('./router.js')
 
 const http = require('http');
 const { Server } = require('socket.io');
 
 const cors = require('cors');
+
+app.use(express.json());
+app.use(router)
 app.use(cors());
+
 
 
 const server = http.createServer(app);
@@ -24,6 +29,7 @@ io.on("connection", (socket) => {
   })
 
   socket.on("send_message", (data) => {
+
     //socket.emit("receive_message", data)
     socket.to(data.group).emit("receive_message", data) //broadcast emits to everyone except yourself
 
