@@ -1,31 +1,22 @@
 const express = require('express');
 const app = express();
 
-const server = require('http').Server(app)
-const io = require('socket.io')(server);
+const http = require('http');
+const { Server } = require('socket.io');
 
 const cors = require('cors');
+app.use(cors());
+
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+    methods: ["GET", "POST"] //frontend URL PORT
+  },
+});
 
 const PORT = 3001;
-
-const router = require('./router');
-
-
-
-app.use(cors());
-app.use(express.json());
-//app.use(router);
-
-
-app.get('/', (req, res) => {
-  res.send('<h1>Helou Güorld</h1>');
-});
-
-
-
 server.listen(PORT, () => {
-  console.log(`server running at http://localhost:${PORT}`);
-});
-
-// server needs to be exported for the tests to work
-module.exports = server;
+  console.log(`Server running on ${PORT}!`)
+})
