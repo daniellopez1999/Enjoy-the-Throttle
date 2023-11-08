@@ -16,6 +16,21 @@ const io = new Server(server, {
   },
 });
 
+io.on("connection", (socket) => {
+  console.log(`User connected: ${socket.id}`);
+
+  socket.on("send_message", (data) => {
+    //socket.emit("receive_message", data)
+    socket.broadcast.emit("receive_message", data) //broadcast emits to everyone except yourself
+
+
+  })
+})
+
+
+
+
+
 const PORT = 3001;
 server.listen(PORT, () => {
   console.log(`Server running on ${PORT}!`)
