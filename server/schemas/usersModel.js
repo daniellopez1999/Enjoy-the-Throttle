@@ -9,12 +9,10 @@ const usersSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
   groupList: {
     type: [String],
     required: false,
   },
-
   bikeList: [
     {
       bikeBrand: {
@@ -27,6 +25,8 @@ const usersSchema = new mongoose.Schema({
       },
     },
   ],
+}, {
+  timestamps: true, 
 });
 
 module.exports = mongoose.model('User', usersSchema);

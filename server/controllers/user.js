@@ -2,8 +2,8 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('./../schemas/usersModel');
+const createAccessToken = require('../libs/jwt')
 
-const SECRET_KEY = process.env.SECRET_KEY || 'lalala this isnt secure';
 // REMOVE-END
 
 
@@ -22,29 +22,36 @@ const create = async (req, res) => {
       res.status(400).send({ error: '400', message: 'Password cannot be empty' }); 
     }
     //if doesn't exist and password length is more than 0, hash it
-    const hash = await bcrypt.hash(password, 10);
+    const passwordHashed = await bcrypt.hash(password, 10);
 
     //create newUser coming from User schema
       try {
         const newUser = new User({
           ...req.body,
           bikeList: [{bikeBrand, bikeModel}],
-          password: hash,
+          password: passwordHashed,
         });
         console.log(newUser)
         
         //save the newUser in DB
-        await newUser.save();
-        res.status(201).send(`Registered ${newUser}`);
-        
+        const userSaved = await newUser.save();
+
+        //JWT
+        const token = await createAccessToken({id: userSaved._id});
+
+        res.cookie("token", token);
+        res.json({
+          id: userSaved._id,
+          name: userSaved.name,
+          groupList: userSaved.groupList,
+          bikeList: userSaved.bikeList,
+          createdAt: userSaved.createdAt,
+          updatedAt: userSaved.updatedAt,
+        });
+
       } catch (err) {
         console.log(err)
         }
-        
-  //   const { _id } = await newUser.save();
-  //   const accessToken = jwt.sign({ _id }, SECRET_KEY);
-  //   res.status(201).send({ accessToken });
-  // } catch (error) {
   } catch (error) {
     console.log(error)
     res.status(400).send(error)
@@ -55,31 +62,56 @@ const create = async (req, res) => {
 
 const login = async (req, res) => {
   // REMOVE-START
-  const { email, password } = req.body;
+  const { name, password } = req.body;
+
   try {
-    const user = await User.findOne({ email: email });
-    const validatedPass = await bcrypt.compare(password, user.password);
-    if (!validatedPass) throw new Error();
-    const accessToken = jwt.sign({ _id: user._id }, SECRET_KEY);
-    res.status(200).send({ accessToken });
+    const userFound = await User.findOne({name: name})
+    if(!userFound) return res.status(400).json({message: "User or Password not found"});
+
+    const passwordMatch = await bcrypt.compare(password, userFound.password);
+
+    if (!passwordMatch) return res.status(400).json({message: "User or Password not found"});
+
+    const token = await createAccessToken({id: userFound._id});
+
+    res.cookie("token", token);
+    res.json({
+      id: userFound._id,
+      name: userFound.name,
+      groupList: userFound.groupList,
+      bikeList: userFound.bikeList,
+      createdAt: userFound.createdAt,
+      updatedAt: userFound.updatedAt,
+    })
   } catch (error) {
-    res
-      .status(401)
-      .send({ error: '401', message: 'Username or password is incorrect' });
+    console.log(error)
+    res.status(400).send(error)
   }
   // REMOVE-END
 };
+
+const logout = (req,res) => {
+  res.cookie("token","", {
+    expires: new Date(0)
+  })
+  return res.status(200).send('Logout successfully')
+  
+}
 
 const profile = async (req, res) => {
   // REMOVE-START
-  try {
-    const { _id, firstName, lastName } = req.user;
-    const user = { _id, firstName, lastName };
-    res.status(200).send(user);
-  } catch {
-    res.status(404).send({ error, message: 'Resource not found' });
-  }
+  const userFound = await User.findById(req.user.id)
+
+  if(!userFound) return res.status(400).json({message: "User not found"});
+  return res.json({
+    id: userFound._id,
+    name: userFound.name,
+    groupList: userFound.groupList,
+    bikeList: userFound.bikeList,
+    createdAt: userFound.createdAt,
+    updatedAt: userFound.updatedAt,
+  })
   // REMOVE-END
 };
 
-module.exports = { create, login, profile }
+module.exports = { create, login, logout, profile }
