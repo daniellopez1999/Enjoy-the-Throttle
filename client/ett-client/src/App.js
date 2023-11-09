@@ -1,45 +1,25 @@
 import './App.css';
-import io from 'socket.io-client';
-import { useEffect, useState } from 'react'
+//import { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './Home';
+import Register from './Register';
+import JoinOrCreateGroup from './JoinOrCreateGroup';
 
-
-const socket = io.connect('http://localhost:3001')
 
 function App() {
-  const [message, setMessage] = useState("")
-  const [messageReceived, setMessageReceived] =  useState("");
-  const [group, setGroup] = useState("");
-
-
-  const joinGroup = () => {
-    if (group !== "") {
-      socket.emit("join_group", group);
-    }
-  }
-
-
-  const sendMessage = () => {
-    socket.emit("send_message", {message, group});
-  };
-
-
-  
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      setMessageReceived(data.message);
-    })
-  }, [socket])
 
   return (
-    <div>
-      <input placeholder="Group ID" onChange={(event) => {
-        setGroup(event.target.value);
-      }} />
-      <button onClick={joinGroup}>Join Group</button>
-      <input placeholder="Message..." onChange={(event) => setMessage(event.target.value)}/>
-      <button onClick={sendMessage}> Send Message</button>
-      <h1>{messageReceived}</h1>
-    </div>
+    <>
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/joinorcreategroup" element={<JoinOrCreateGroup />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </div>
+    </Router>
+  </>
   );
 }
 
