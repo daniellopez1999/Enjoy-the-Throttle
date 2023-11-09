@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {login} from './requests/user'
+//import Cookies from 'js-cookie'
 
 const URL = 'http://localhost:3001/login'
 
@@ -28,6 +29,8 @@ const Home = () => {
       console.log(res.message);
       navigate('/')
     } else {
+      console.log(res)
+
       navigate('/joinorcreategroup')
     }
     

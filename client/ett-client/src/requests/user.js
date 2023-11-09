@@ -3,6 +3,8 @@ async function login (url,data) {
   try {
     const response = await fetch(url, {
       method: 'POST',
+      credentials: 'include',
+
       headers: {
         "Content-Type": "application/json"
       },
@@ -12,7 +14,8 @@ async function login (url,data) {
     const result = await response.json()
 
     if (response.ok) {
-      return { error: false, data: result };
+ 
+      return { error: false, data: result};
     } else {
       return { error: true, message: result.message };
     }

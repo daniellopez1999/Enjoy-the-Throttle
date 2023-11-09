@@ -3,11 +3,29 @@ const app = express();
 const router = require('./router.js')
 const cookieParser = require('cookie-parser');
 const http = require('http');
+const session = require('express-session');
 const { Server } = require('socket.io');
 
 const cors = require('cors');
-
-app.use(cors());
+const corsConfig = {
+  // REMOVE-START
+  origin: 'http://localhost:3000',
+  credentials: true,
+  // REMOVE-END
+};
+app.use(cors(corsConfig));
+app.use(session({
+  name: 'token',
+  saveUninitialized: false,
+  resave: false,
+  secret: 'secretTest',
+  cookie: {
+    maxAge: 1000*60*60,
+    httpOnly: false,
+    sameSite: true,
+    secure: false,
+  }
+}));
 app.use(express.json());
 app.use(cookieParser())
 app.use(router)

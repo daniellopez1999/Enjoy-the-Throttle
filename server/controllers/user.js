@@ -74,7 +74,12 @@ const login = async (req, res) => {
 
     const token = await createAccessToken({id: userFound._id});
 
-    res.cookie("token", token);
+    //res.cookie("token", token);
+    console.log(res.session, req.session)
+    req.session.uid = userFound._id;
+    req.session.token = token
+    console.log(req.session)
+
     res.json({
       id: userFound._id,
       name: userFound.name,
