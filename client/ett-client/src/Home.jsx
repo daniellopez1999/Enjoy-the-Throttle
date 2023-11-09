@@ -9,7 +9,7 @@ const Home = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate()
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     if (!userName || !password) {
@@ -22,16 +22,20 @@ const Home = () => {
       password: password
     }
 
-    login(URL,userData)
-      .then((data) => {
-        console.log(data)
-      })
+    const res = await login(URL,userData)
+
+    if (res.error) {
+      console.log(res.message);
+      navigate('/')
+    } else {
+      navigate('/joinorcreategroup')
+    }
+    
     
 
     console.log('Login ', { userName, password });
 
     // history.push('/joinorcreategroup');
-    navigate('/joinorcreategroup')
   };
 
   return (
