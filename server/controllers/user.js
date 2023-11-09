@@ -9,24 +9,45 @@ const SECRET_KEY = process.env.SECRET_KEY || 'lalala this isnt secure';
 
 const create = async (req, res) => {
   // REMOVE-START
-  const { email, password } = req.body;
-  const user = await User.findOne({ email: email });
+  const { name, password, bikeBrand, bikeModel, bikeYear } = req.body;
+  console.log(req.body)
+  //check if user exists
+  const user = await User.findOne({ name: name });
   if (user)
     return res
       .status(409)
-      .send({ error: '409', message: 'User already exists' });
+      .send({ error: '409', message: 'User Name already exists' });
   try {
-    if (password === '') throw new Error();
+    if (password === '') {
+      res.status(400).send({ error: '400', message: 'Password cannot be empty' }); 
+    }
+    //if doesn't exist and password length is more than 0, hash it
     const hash = await bcrypt.hash(password, 10);
-    const newUser = new User({
-      ...req.body,
-      password: hash,
-    });
-    const { _id } = await newUser.save();
-    const accessToken = jwt.sign({ _id }, SECRET_KEY);
-    res.status(201).send({ accessToken });
+
+    //create newUser coming from User schema
+      try {
+        const newUser = new User({
+          ...req.body,
+          bikeList: [{bikeBrand, bikeModel}],
+          password: hash,
+        });
+        console.log(newUser)
+        
+        //save the newUser in DB
+        await newUser.save();
+        res.status(201).send(`Registered ${newUser}`);
+        
+      } catch (err) {
+        console.log(err)
+        }
+        
+  //   const { _id } = await newUser.save();
+  //   const accessToken = jwt.sign({ _id }, SECRET_KEY);
+  //   res.status(201).send({ accessToken });
+  // } catch (error) {
   } catch (error) {
-    res.status(400).send({ error, message: 'Could not create user' });
+    console.log(error)
+    res.status(400).send(error)
   }
   // REMOVE-END
 };

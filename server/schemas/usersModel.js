@@ -1,14 +1,20 @@
 const mongoose = require('../db.js');
 
-const usersSchema = mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-  },
+const usersSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
+
+  groupList: {
+    type: [String],
+    required: false,
+  },
+
   bikeList: [
     {
       bikeBrand: {
@@ -21,10 +27,6 @@ const usersSchema = mongoose.Schema({
       },
     },
   ],
-  groupList: {
-    type: [String],
-    required: true,
-  },
 });
 
 module.exports = mongoose.model('User', usersSchema);
