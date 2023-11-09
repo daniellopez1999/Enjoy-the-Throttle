@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import {login} from './requests/user'
+
+const URL = 'http://localhost:3001/login'
 
 const Home = () => {
   const [userName, setUserName] = useState('');
@@ -13,6 +16,17 @@ const Home = () => {
       alert('Obligatorio');
       return;
     }
+
+    const userData = {
+      name: userName,
+      password: password
+    }
+
+    login(URL,userData)
+      .then((data) => {
+        console.log(data)
+      })
+    
 
     console.log('Login ', { userName, password });
 
