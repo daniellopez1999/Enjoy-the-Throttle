@@ -51,15 +51,14 @@ async function register (url, data) {
   }
 }
 
-async function getModels (url,data) {
+async function getModels (url) {
   try {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'X-Api-Key': 'Wgp1mwm8XB3PeUrejLLO3Q==pmqHC9BQDe22X2ce',
         "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
+      },      
     })
 
     const result = await response.json()
