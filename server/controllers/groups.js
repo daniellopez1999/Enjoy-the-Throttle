@@ -11,12 +11,14 @@ const createGroup = async (req, res) => {
   if(group) return res.status(409).send({error:'409', message:'Group already exists'});
   
 
-  if (mandatoryBike === undefined) {
-    bikeBrand = null,
+  if (!mandatoryBike) {
+    bikeBrand = null;
     bikeModel = null;
     mandatoryBike = false;
   }
 
+  console.log(mandatoryBike)
+  console.log(bikeBrand)
   try {
     const newGroup = new Group({
       groupName: groupName,
