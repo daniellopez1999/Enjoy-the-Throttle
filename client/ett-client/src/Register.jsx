@@ -6,42 +6,36 @@ import { register, getModels } from './requests/user';
 const URL = 'http://localhost:3001/register';
 const APIUrl = 'https://api.api-ninjas.com/v1/motorcycles?make='
 
-const mockData = [
-  {
-    id: 1,
-    name: 'Kawasaki',
-    models: ['ZX-6R', 'Z900'],
-  },
-  {
-    id: 2,
-    name: 'Yamaha',
-    models: ['R1', 'R7'],
-  },
-];
 
 const Register = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [bikeBrand, setBikeBrand] = useState('');
   const [bikeModel, setBikeModel] = useState('');
+  const [fetchedModels, setFetchedModels] = useState([]);
   const [modelsByBrand, setModelsByBrand] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (bikeBrand && mockData.length > 0) {
-      const selectedBrand = mockData.find(
-        (brand) => brand.name.toLowerCase() === bikeBrand.toLowerCase()
+    console.log(bikeBrand)
+    console.log(fetchedModels)
+    if (bikeBrand && fetchedModels.length > 0) {
+      const selectedBrand = fetchedModels.find(
+        (brand) => brand.make === bikeBrand
       );
 
-      if (selectedBrand) {
-        setModelsByBrand(selectedBrand.models || []);
+      if (fetchedModels) {
+        console.log(fetchedModels)
+        setModelsByBrand(fetchedModels)
+        //const allModels = selectedBrand.model || [];
+        //setModelsByBrand(allModels);
       } else {
         setModelsByBrand([]);
       }
     } else {
       setModelsByBrand([]);
     }
-  }, [bikeBrand]);
+  }, [fetchedModels]);
 
   const getModelsByBrand = async (brand) => {
     const url = `${APIUrl}${brand}`
@@ -52,7 +46,8 @@ const Register = () => {
       console.log(res.message);
     } else {
       console.log(res);
-    }
+      setFetchedModels(res.data)
+     }
 
   };
 
@@ -125,9 +120,9 @@ const Register = () => {
             Model:
             <select onChange={(e) => setBikeModel(e.target.value)} value={bikeModel} required>
               <option value="">Seleccione un modelo</option>
-              {modelsByBrand.map((modelo, index) => (
-                <option key={index} value={modelo}>
-                  {modelo}
+              {modelsByBrand.map((model, index) => (
+                <option key={index} value={model}>
+                  {model.model}
                 </option>
               ))}
             </select>
