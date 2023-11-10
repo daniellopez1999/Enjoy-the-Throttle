@@ -28,7 +28,7 @@ const create = async (req, res) => {
       try {
         const newUser = new User({
           ...req.body,
-          bikeList: [{bikeBrand, bikeModel}],
+          bikeList: [{bikeBrand, bikeModel}], 
           password: passwordHashed,
         });
         console.log(newUser)
@@ -80,6 +80,7 @@ const login = async (req, res) => {
     req.session.token = token
     console.log(req.session)
 
+    
     res.json({
       id: userFound._id,
       name: userFound.name,

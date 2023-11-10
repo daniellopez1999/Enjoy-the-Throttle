@@ -1,5 +1,6 @@
 import React from 'react'
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import CreateGroup from './CreateGroup';
 
 const JoinOrCreateGroup = () => {
   return (
@@ -12,7 +13,7 @@ const JoinOrCreateGroup = () => {
           Join Group
         </button>
         <button type="button">
-          Create Group
+          <Link to={"/creategroup"}> Create Group </Link>
         </button>
     </div>
   )

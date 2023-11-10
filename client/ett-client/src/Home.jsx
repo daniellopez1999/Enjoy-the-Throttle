@@ -30,7 +30,7 @@ const Home = () => {
       navigate('/')
     } else {
       console.log(res)
-
+      localStorage.setItem('id',res.data.id)
       navigate('/joinorcreategroup')
     }
     

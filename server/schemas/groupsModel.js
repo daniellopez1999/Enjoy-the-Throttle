@@ -1,25 +1,25 @@
 const mongoose = require('../db.js');
 
 const groupsSchema = mongoose.Schema({
-  id: {
-    type: String,
-    required: true,
-  },
   groupName: {
     type: String,
     required: true,
   },
   bikeBrand: {
     type: String,
-    required: true,
+    required: false,
   },
   bikeModel: {
     type: String,
-    required: true,
+    required: false,
   },
   mandatoryBike: {
     type: Boolean,
     required: false,
+  },
+  memberList: {
+    type: [String],
+    required: true,
   }
 });
 
