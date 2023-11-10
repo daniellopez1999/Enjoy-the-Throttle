@@ -1,10 +1,10 @@
 // Register.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { register } from './requests/user';
+import { register, getModels } from './requests/user';
 
-const URL = 'http://localhost:3001/register'
-
+const URL = 'http://localhost:3001/register';
+const APIUrl = 'https://api.api-ninjas.com/v1/motorcycles?make='
 
 const mockData = [
   {
@@ -20,14 +20,12 @@ const mockData = [
 ];
 
 const Register = () => {
-
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [bikeBrand, setBikeBrand] = useState('');
   const [bikeModel, setBikeModel] = useState('');
   const [modelsByBrand, setModelsByBrand] = useState([]);
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (bikeBrand && mockData.length > 0) {
@@ -38,14 +36,25 @@ const Register = () => {
       if (selectedBrand) {
         setModelsByBrand(selectedBrand.models || []);
       } else {
-        // Si la marca no se encuentra, establecer modelos en un array vacío
         setModelsByBrand([]);
       }
     } else {
-      // Si no hay marca escrita, establecer modelos en un array vacío
       setModelsByBrand([]);
     }
   }, [bikeBrand]);
+
+  const getModelsByBrand = async (brand) => {
+    const url = `${APIUrl}${brand}`
+    console.log(url)
+    const res = await getModels(url)
+
+    if (res.error) {
+      console.log(res.message);
+    } else {
+      console.log(res);
+    }
+
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -55,21 +64,18 @@ const Register = () => {
       password: password,
       bikeBrand: bikeBrand,
       bikeModel: bikeModel,
-    }
+    };
 
-    const res = await register(URL,userData)
+    const res = await register(URL, userData);
 
     if (res.error) {
       console.log(res.message);
-      navigate('/register')
+      navigate('/register');
     } else {
-      console.log(res)
-      console.log('Successfully registered')
-      navigate('/')
+      console.log(res);
+      console.log('Successfully registered');
+      navigate('/');
     }
-
-
-
   };
 
   return (
@@ -105,6 +111,14 @@ const Register = () => {
               onChange={(e) => setBikeBrand(e.target.value)}
               required
             />
+          </label>
+
+          {/* Botón para realizar la solicitud a la API */}
+          <label>
+            Fetch Models
+            <button type="button" onClick={() => getModelsByBrand(bikeBrand)}>
+              Fetch Models
+            </button>
           </label>
 
           <label>

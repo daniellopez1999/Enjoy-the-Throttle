@@ -51,7 +51,33 @@ async function register (url, data) {
   }
 }
 
+async function getModels (url,data) {
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'X-Api-Key': 'Wgp1mwm8XB3PeUrejLLO3Q==pmqHC9BQDe22X2ce',
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+
+    const result = await response.json()
+
+    if (response.ok) {
+ 
+      return { error: false, data: result};
+    } else {
+      return { error: true, message: result.message };
+    }
+
+  } catch (error) {
+      return {error: true, message: error}
+  }
+}
+
 module.exports = {
   login,
-  register
+  register,
+  getModels
 }
