@@ -7,6 +7,7 @@ import JoinOrCreateGroup from './JoinOrCreateGroup';
 import CreateGroup from './CreateGroup';
 import JoinGroup from './JoinGroup';
 import ListOfGroups from './ListOfGroups';
+import GroupChat from './GroupChat';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/joinorcreategroup" element={<JoinOrCreateGroup />} />
           <Route path="/register" element={<Register />} />
           <Route path="/listofgroups" element={<ListOfGroups />} />
+          <Route path="/group/:groupName" element={<GroupChat />} />
         </Routes>
       </div>
     </Router>

@@ -10,6 +10,7 @@ const ListOfGroups = () => {
   const [list, setList] = useState([]);
 
     const userID = localStorage.getItem('id')
+    const navigate = useNavigate();
 
   const getList = async (id) => {
     const URL = `${baseURL}${id}`
@@ -29,16 +30,24 @@ const ListOfGroups = () => {
     getList(userID)
   }, [userID])
 
-const navigate = useNavigate();
+
+  const handleGroupClick = (groupName) => {
+    console.log('LLEGO DEL HANDLEGROUPCLICK. NOMBRE: ',groupName)
+    navigate(`/group/${groupName}`);
+  };
 
   return (
     <div>
       <h1>Lista de grupos</h1>
-          <div>
-            {list.map((group,index) => {
-              return <div key={index}>{group}</div>
-            })}
+      <div>
+        {list.map((group, index) => (
+          <div key={index}>
+            <button onClick={() => handleGroupClick(group)}> 
+            {group}
+            </button>
           </div>
+        ))}
+      </div>
     </div>
   )
 }
