@@ -57,6 +57,8 @@ const joinGroup = async (req, res) => {
   try{
     //busca este grupo en la DB,
     const groupFound = await Group.find({groupName: groupName}).exec()
+    const groupID = groupFound[0]._id
+    console.log('ID of the group: ', groupID)
     console.log(groupFound)
 
     //if group exists
@@ -92,6 +94,7 @@ const joinGroup = async (req, res) => {
             if (foundBike) {
               console.log('user has the mandatory bike')
               //add groupName to groups in User Table
+              
               await User.findByIdAndUpdate(userID, {$push: {groupList: groupName}},
                 { new : true })
             
@@ -102,8 +105,14 @@ const joinGroup = async (req, res) => {
                 })
               
               //add userID to memberList in the user Group table
-            
-              
+              await Group.findOneAndUpdate({_id: groupID}, {$push: {memberList: userID}},
+              {new : true})
+                .then((updatedGroup) => {
+                  console.log('Group Updated with userID into memberList', updatedGroup);
+                }).catch((error) => {
+                  console.log('Could not add group to the groupList of the user', error)
+                })
+
             } else {
               console.log('user doest have the mandatory bike')
               return res.json({error: "User doesn't have the mandatory bike."}).status(500)
