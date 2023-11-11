@@ -3,12 +3,28 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 const Chat = () => {
+//EXTRA TIME:
+  //Check if userID is in group
+    //If it's not, render ERROR
+    //If it's in the group, just normal render
+  const userID = localStorage.getItem('id')
+  
   const { groupName } = useParams();
   const [messages, setMessages] = useState([]);
 
+  console.log(groupName)
+
+  
+  //primero, get de todos los mensajes existentes
+//messages where groupName = groupName
+
+//luego implementar socket io para que todo sea a tiempo real
+//post de cada mensaje que se escribe en messagesDB
+//probablemente sockets deberian estar en useEffect
+
   useEffect(() => {
-    // Lógica para cargar mensajes del grupo con el nombre groupName
-    // Puedes hacer una llamada a la API, usar sockets, etc.
+
+
     // Aquí, se usa un mensaje de ejemplo
     setMessages([`Message 1 in Group ${groupName}`, `Message 2 in Group ${groupName}`]);
   }, [groupName]);
