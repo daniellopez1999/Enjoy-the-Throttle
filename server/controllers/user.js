@@ -106,7 +106,9 @@ const logout = (req,res) => {
 
 const profile = async (req, res) => {
   // REMOVE-START
-  const userFound = await User.findById(req.user.id)
+  console.log('AA',req)
+  console.log('BB',res.body)
+  const userFound = await User.findById(req.user._id)
 
   if(!userFound) return res.status(400).json({message: "User not found"});
   return res.json({

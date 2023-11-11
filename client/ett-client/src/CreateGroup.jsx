@@ -89,7 +89,7 @@ const CreateGroup = () => {
       bikeBrand: bikeBrand,
       bikeModel: bikeModel,
       mandatoryBike: mandatoryBike,
-      memberList: [userID]
+      memberList: userID
     }
     console.log(groupData)
 
@@ -136,7 +136,7 @@ const CreateGroup = () => {
               type="text"
               value={bikeBrand}
               onChange={(e) => setBikeBrand(e.target.value)}
-              required
+              
             />
           </label>
 
@@ -146,7 +146,7 @@ const CreateGroup = () => {
               type="text"
               value={bikeYear}
               onChange={(e) => setBikeYear(e.target.value)}
-              required
+              
             />
           </label>
 
@@ -158,7 +158,7 @@ const CreateGroup = () => {
       setBikeModel(''); // Resetear bikeModel al cambiar bikeType
     }}
     value={bikeType}
-    required
+    
   >
     <option value="">Seleccione un tipo</option>
     {validBikeTypes.map((type, index) => (
@@ -174,7 +174,7 @@ const CreateGroup = () => {
   <select
     onChange={(e) => setBikeModel(e.target.value)}
     value={bikeModel}
-    required
+    
   >
     <option value="">Seleccione un modelo</option>
     {modelsByBrand.filter(model => model.type === bikeType).map((model, index) => (
