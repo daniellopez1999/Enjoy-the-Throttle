@@ -78,19 +78,32 @@ const joinGroup = async (req, res) => {
             const bikeModel = groupFound[0].bikeModel
 
             //find user in User schema DB by userid
-            const userIdInDB = await User.findById(userID)
-            console.log('l79',userIdInDB)
+            const userInDB = await User.findById(userID)
+            console.log('l79',userInDB)
             
             console.log('BIKE NEEDED: ',bikeBrand, bikeModel)
             //check array, bikeList in users.
-            const foundBike = userIdInDB.bikeList.some(bike => {
+            const foundBike = userInDB.bikeList.some(bike => {
               return bike.bikeBrand === bikeBrand && bike.bikeModel === bikeModel;
             });
-            
+
             console.log('l85',foundBike)
             //if any of the objects of bikeList has bikeModel groupFound[0].bikeModel, add to group
             if (foundBike) {
               console.log('user has the mandatory bike')
+              //add groupName to groups in User Table
+              await User.findByIdAndUpdate(userID, {$push: {groupList: groupName}},
+                { new : true })
+            
+                .then((updatedUser) => {
+                  console.log('User Updated with groupName', updatedUser);
+                }).catch((error) => {
+                  console.log('Could not add group to the groupList of the user', error)
+                })
+              
+              //add userID to memberList in the user Group table
+            
+              
             } else {
               console.log('user doest have the mandatory bike')
               return res.json({error: "User doesn't have the mandatory bike."}).status(500)
