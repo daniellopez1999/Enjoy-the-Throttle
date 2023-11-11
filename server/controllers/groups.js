@@ -59,13 +59,52 @@ const joinGroup = async (req, res) => {
     const groupFound = await Group.find({groupName: groupName}).exec()
     console.log(groupFound)
 
-    //comprueba si el usuario ya pertenece al grupo
+    //if group exists
     if (groupFound) {
       console.log('l64',groupFound[0].memberList)
+
+      //group exists, then check if user exists in group
       const foundID = groupFound[0].memberList.includes(userID);
-      console.log('found id: ',foundID)
+        if(foundID) {
+          console.log('found id: ',foundID)
+          return res.json({error: 'User already exists in the group'}).status(500)
+        }
+        else {
+          console.log('user does not exist in group.')
+          //user doesn't exist in group, check if mandatory bike is true, if it's true check if user has that bike
+          if (groupFound[0].mandatoryBike) {
+
+            const bikeBrand = groupFound[0].bikeBrand
+            const bikeModel = groupFound[0].bikeModel
+
+            //find user in User schema DB by userid
+            const userIdInDB = await User.findById(userID)
+            console.log('l79',userIdInDB)
+            
+            console.log('BIKE NEEDED: ',bikeBrand, bikeModel)
+            //check array, bikeList in users.
+            const foundBike = userIdInDB.bikeList.some(bike => {
+              return bike.bikeBrand === bikeBrand && bike.bikeModel === bikeModel;
+            });
+            
+            console.log('l85',foundBike)
+            //if any of the objects of bikeList has bikeModel groupFound[0].bikeModel, add to group
+            if (foundBike) {
+              console.log('user has the mandatory bike')
+            } else {
+              console.log('user doest have the mandatory bike')
+              return res.json({error: "User doesn't have the mandatory bike."}).status(500)
+            }
+
+            //else reject
+          } else { 
+              console.log ('not mandatory bike')
+          }
+        }
+        
     }
-    //comprueba si mandatoryBike = true, comprueba si el usuario tiene esa moto
+
+
 
     res.status(200).json({message: 'joined'})
   } catch (error) {
