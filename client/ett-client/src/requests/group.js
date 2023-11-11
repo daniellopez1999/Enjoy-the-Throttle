@@ -1,6 +1,6 @@
 async function createGroupRequest (url,data) {
   try {
-    const response = await fetch(url, {
+    let response = await fetch(url, {
       method: 'POST',
       credentials: 'include',
 
@@ -10,7 +10,7 @@ async function createGroupRequest (url,data) {
       body: JSON.stringify(data)
     })
     
-    const result = await response.json()
+    let result = await response.json()
 
     if (response.ok) {
       console.log('OK',data)
@@ -29,6 +29,24 @@ async function createGroupRequest (url,data) {
 
 async function joinGroupRequest (url,data) {
   try {
+    let response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    let result = await response.json();
+
+    if (response.ok) {
+      console.log('OK', data);
+      return { error: false, data: result };
+    } else {
+      console.log(response)
+      console.log('Error Status:', response.status);
+      console.log('Error Message:', result.message);
+      return { error: true, message: result.message };
+    }
 
   } catch (error) {
     console.log(error)

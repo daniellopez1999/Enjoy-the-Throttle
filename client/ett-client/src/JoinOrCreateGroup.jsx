@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import CreateGroup from './CreateGroup';
+
 
 const JoinOrCreateGroup = () => {
   return (
@@ -10,7 +10,7 @@ const JoinOrCreateGroup = () => {
         </button>
         {/* Campos del formulario de inicio de sesión */}
         <button type="button">
-          Join Group
+        <Link to={"/joingroup"}> Join Group </Link>
         </button>
         <button type="button">
           <Link to={"/creategroup"}> Create Group </Link>

@@ -39,7 +39,6 @@ const createGroup = async (req, res) => {
     }).catch((error) => {
       console.log('Could not add group to the groupList of the user', error)
     })
-
     
      
     res.json('created group').status(200)
@@ -52,16 +51,30 @@ const createGroup = async (req, res) => {
 }
 
 const joinGroup = async (req, res) => {
-  //recibe nombre de grupo
+  console.log(req.body)
+  const { groupName, userID } = req.body
 
-  //busca este grupo en la DB,
-  //comprueba si el usuario ya pertenece al grupo
-  //comprueba si mandatoryBike = true, comprueba si el usuario tiene esa moto
+  try{
+    //busca este grupo en la DB,
+    const groupFound = await Group.find({groupName: groupName}).exec()
+    console.log(groupFound)
+
+    //comprueba si el usuario ya pertenece al grupo
+    if (groupFound) {
+      console.log('l64',groupFound[0].memberList)
+      const foundID = groupFound[0].memberList.includes(userID);
+      console.log('found id: ',foundID)
+    }
+    //comprueba si mandatoryBike = true, comprueba si el usuario tiene esa moto
+
+    res.status(200).json({message: 'joined'})
+  } catch (error) {
+    res.status(500).json({error: 'Internal server error'})
+  }
 
 
 }
 module.exports = {
   createGroup,
-  joinGroup
-
+  joinGroup,
 }

@@ -11,6 +11,7 @@ router.get('/profile', authRequired,userController.profile)
 
 
 //create group, join group
-router.post('/createGroup', groupController.createGroup)
+router.post('/createGroup', groupController.createGroup);
+router.post('/joinGroup', groupController.joinGroup);
 
 module.exports = router;
