@@ -53,8 +53,27 @@ async function joinGroupRequest (url,data) {
   }
 }
 
+async function getListOfGroups (url) {
+  try {
+    let response = await fetch(url);
+
+    if (!response.ok) {
+      console.log(`HTTP error! Status: ${response.status}`);
+    }
+
+    let data = await response.json();
+    console.log('User data:', data);
+    // Hacer algo con los datos obtenidos
+    return data
+
+  } catch (error) {
+    console.error('Error al obtener el usuario:', error);
+  }
+}
+
 
 module.exports = {
   createGroupRequest,
   joinGroupRequest,
+  getListOfGroups
 }

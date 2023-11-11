@@ -11,7 +11,7 @@ const urlJoinGroup = 'http://localhost:3001/joinGroup';
 const CreateGroup = () => {
   const [groupName, setGroupName] = useState('');
 
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleJoinGroup = async (e) => {
     e.preventDefault();
@@ -23,6 +23,15 @@ const CreateGroup = () => {
     }
 
     const joinGPResponse = await joinGroupRequest(urlJoinGroup,groupData,{userID})
+    
+    if (joinGPResponse.error) {
+      console.log(joinGPResponse.message);
+      navigate('/joingroup');
+    } else {
+      console.log(joinGPResponse);
+      console.log('Joined to the group');
+      navigate('/joinorcreategroup');
+    }
 
     console.log(joinGPResponse)
 

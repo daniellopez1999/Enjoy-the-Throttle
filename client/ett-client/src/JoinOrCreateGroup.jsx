@@ -6,7 +6,7 @@ const JoinOrCreateGroup = () => {
   return (
     <div>
         <button type="button">
-          Group List
+        <Link to={"/listofgroups"}> Group List </Link>
         </button>
         {/* Campos del formulario de inicio de sesión */}
         <button type="button">

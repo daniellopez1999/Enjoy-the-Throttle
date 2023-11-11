@@ -6,6 +6,7 @@ import Register from './Register';
 import JoinOrCreateGroup from './JoinOrCreateGroup';
 import CreateGroup from './CreateGroup';
 import JoinGroup from './JoinGroup';
+import ListOfGroups from './ListOfGroups';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/joingroup" element={<JoinGroup />} />
           <Route path="/joinorcreategroup" element={<JoinOrCreateGroup />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/listofgroups" element={<ListOfGroups />} />
         </Routes>
       </div>
     </Router>

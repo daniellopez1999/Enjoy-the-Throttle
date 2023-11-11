@@ -125,17 +125,29 @@ const joinGroup = async (req, res) => {
         }
         
     }
-
-
-
     res.status(200).json({message: 'joined'})
   } catch (error) {
     res.status(500).json({error: 'Internal server error'})
   }
+}
 
+
+const getAllGroups = async (req, res) => {
+  const userID = req.params.userID
+  const userInfo = await User.findById(userID)
+  const groupsFromUser = userInfo.groupList
+  console.log('User Info',userInfo)
+  console.log('GROUPS: ',groupsFromUser)
+
+  //testeo
+  res.json(groupsFromUser)
+  //buscar en el modelo Group todos los groups que coincidan con groupsFromUser
 
 }
+
+
 module.exports = {
   createGroup,
   joinGroup,
+  getAllGroups
 }
