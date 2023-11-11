@@ -16,12 +16,17 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   
-  const getMessagesWhenLoaded = async () => {
-    const receivedMessages = await getMessages(URLGet,groupName)
+  useEffect(() => {
+    // Esta función se ejecutará solo una vez al montar el componente
+    const getMessagesWhenLoaded = async () => {
+      const receivedMessages = await getMessages(URLGet, groupName);
+      console.log(receivedMessages.message)
+      setMessages(receivedMessages.message);
+    };
 
-  }
-  getMessagesWhenLoaded()
-
+    getMessagesWhenLoaded();
+  }, []); 
+  
   const handleSubmitMessage = async (e) => {
     e.preventDefault();
     const messageData = {
@@ -48,20 +53,13 @@ const Chat = () => {
 //post de cada mensaje que se escribe en messagesDB
 //probablemente sockets deberian estar en useEffect
 
-  useEffect(() => {
-
-
-    // Aquí, se usa un mensaje de ejemplo
-    setMessages([`Message 1 in Group ${groupName}`, `Message 2 in Group ${groupName}`]);
-  }, [groupName]);
-
   return (
     <>
     <div>
       <h2>Chat for Group {groupName}</h2>
       <ul>
         {messages.map((message, index) => (
-          <li key={index}>{message}</li>
+          <li key={index}>{message.text}</li>
         ))}
       </ul>
     </div>
