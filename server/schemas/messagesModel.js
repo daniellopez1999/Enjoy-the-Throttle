@@ -5,7 +5,7 @@ const messagesSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  groupID: {
+  groupName: {
     type: String,
     required: true,
   },

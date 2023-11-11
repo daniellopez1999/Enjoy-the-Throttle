@@ -8,17 +8,17 @@ const getAllMessages = async (req, res) => {
 
 const postMessage = async (req, res) => {
   console.log(req.body)
-  let { userID, groupID, text } = req.body
+  let { userID, groupName, text } = req.body
 
   console.log('USER ID: ',userID)
-  console.log('GROUP ID: ', groupID)
+  console.log('GROUP ID: ', groupName)
   console.log('TEXT: ', text)
   res.status(200).json({message: req.body})
 
   try {
     let newMessage = new Message({
       userID: userID,
-      groupID: groupID,
+      groupName: groupName,
       text: text
     })
 
