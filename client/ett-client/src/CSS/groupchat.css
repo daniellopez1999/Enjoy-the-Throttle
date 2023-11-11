@@ -1,0 +1,26 @@
+#container {
+  list-style: none;
+  padding: 0;
+}
+
+.messages-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 5px;
+  max-width: 70%;
+}
+
+.message-left {
+  background-color: #e0e0e0;
+}
+
+.message-right {
+  background-color: #b2ffd4;
+  align-self: flex-end;
+}

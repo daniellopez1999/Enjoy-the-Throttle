@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { postMessage, getMessages } from './requests/message';
+import './CSS/groupchat.css'
 
 const Chat = () => {
 //EXTRA TIME:
@@ -55,13 +56,17 @@ const Chat = () => {
 
   return (
     <>
-    <div>
-      <h2>Chat for Group {groupName}</h2>
-      <ul>
-        {messages.map((message, index) => (
-          <li key={index}>{message.text}</li>
-        ))}
-      </ul>
+    <div id="container">
+    <div className="messages-list">
+          {messages.map((message, index) => (
+            <div
+              key={index}
+              className={`message ${message.userID === userID ? 'message-right' : 'message-left'}`}
+            >
+              {message.text}
+            </div>
+          ))}
+        </div>
     </div>
 
     <div>
