@@ -9,12 +9,18 @@ const Chat = () => {
     //If it's not, render ERROR
     //If it's in the group, just normal render
   const userID = localStorage.getItem('id')
-  const URL = 'http://localhost:3001/postMessage'
+  const URLPost = 'http://localhost:3001/postMessage'
+  const URLGet = 'http://localhost:3001/getAllMessages'
 
   const { groupName } = useParams();
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   
+  const getMessagesWhenLoaded = async () => {
+    const receivedMessages = await getMessages(URLGet,groupName)
+
+  }
+  getMessagesWhenLoaded()
 
   const handleSubmitMessage = async (e) => {
     e.preventDefault();
@@ -24,7 +30,7 @@ const Chat = () => {
       text: inputMessage,
     }
 
-    const responsePostMessage = await postMessage(URL,messageData);
+    const responsePostMessage = await postMessage(URLPost,messageData);
 
     if (responsePostMessage.error) {
       console.log(responsePostMessage.message);

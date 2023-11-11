@@ -24,8 +24,26 @@ async function postMessage (url,data) {
   }
 }
 
-async function getMessages (url) {
-  console.log(url)
+async function getMessages (url,groupName) {
+  const encodedGroupName = encodeURIComponent(groupName);
+  const APIUrl = `${url}/${encodedGroupName}`
+  console.log(APIUrl)
+  console.log(APIUrl)
+  try {
+    let response = await fetch(APIUrl);
+
+    if (!response.ok) {
+      console.log(`HTTP error! Status: ${response.status}`);
+    }
+
+    let data = await response.json();
+    console.log('User data:', data);
+    // Hacer algo con los datos obtenidos
+    return data
+
+  } catch (error) {
+    console.error('Error al obtener el usuario:', error);
+  }
 }
 
 

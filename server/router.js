@@ -18,7 +18,7 @@ router.get('/getAllGroups/:userID', groupController.getAllGroups)
 
 
 //getAllMessages, postMessage
-router.get('/getAllMessages', messagesController.getAllMessages);
+router.get('/getAllMessages/:groupName', messagesController.getAllMessages);
 router.post('/postMessage', messagesController.postMessage);
 
 module.exports = router;

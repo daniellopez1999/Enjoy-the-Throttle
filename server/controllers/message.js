@@ -1,10 +1,13 @@
 const Message = require('./../schemas/messagesModel')
 
 const getAllMessages = async (req, res) => {
-  console.log(req.body)
-  console.log('he llegado GET')
-  res.status(200).json({message: req.body})
-}
+  const groupName = decodeURIComponent(req.params.groupName);
+  console.log('Nombre del Grupo:', groupName);  
+  
+  const messages = await Message.find({ groupName: groupName });
+  console.log(messages);
+  res.status(200).json({ message: messages }); // Cambiado de req.body a messages
+};
 
 const postMessage = async (req, res) => {
   console.log(req.body)
@@ -29,6 +32,7 @@ const postMessage = async (req, res) => {
     console.log(error)
   }
 }
+
 
 module.exports = {
   getAllMessages,
