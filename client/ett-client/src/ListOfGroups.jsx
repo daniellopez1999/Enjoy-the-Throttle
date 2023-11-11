@@ -32,9 +32,14 @@ const ListOfGroups = () => {
 
 
   const handleGroupClick = (groupName) => {
-    console.log('LLEGO DEL HANDLEGROUPCLICK. NOMBRE: ',groupName)
-    navigate(`/group/${groupName}`);
+    console.log('LLEGO DEL HANDLEGROUPCLICK. NOMBRE: ', groupName);
+    if (groupName) {
+      navigate(`/group/${groupName}`);
+    } else {
+      console.log('Nombre de grupo indefinido.');
+    }
   };
+  
 
   return (
     <div>
