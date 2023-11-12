@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { postMessage, getMessages } from './requests/message';
+import { getUserName } from './requests/user';
 import { useNavigate } from 'react-router-dom';
 import {io} from 'socket.io-client'
 import './CSS/groupchat.css'
@@ -59,12 +60,29 @@ const Chat = () => {
   }, [groupName]);
 
   const handleSubmitMessage = async (e) => {
+
     e.preventDefault();
     const messageData = {
       userID: userID,
       groupName: groupName,
       text: inputMessage,
     };
+
+    //get userName by ID and set it as userName
+    const responseGetUserName = await getUserName(`http://localhost:3001/getUserName/${userID}`)
+
+    if(responseGetUserName.error) {
+      console.log(responseGetUserName.error);
+    } else {
+      console.log('Username received', responseGetUserName)
+    }
+
+    const messageDataSocket = {
+      userID: userID,
+      groupName: groupName,
+      text: inputMessage,
+      userName: responseGetUserName,
+    }
 
     const responsePostMessage = await postMessage(URLPost, messageData);
 
@@ -74,7 +92,7 @@ const Chat = () => {
       console.log('Message posted in DB: ', responsePostMessage);
     }
 
-    socket.emit('send_message', messageData);
+    socket.emit('send_message', messageDataSocket);
 
     setInputMessage('');
   };
@@ -93,20 +111,26 @@ const Chat = () => {
                 message.userID === userID ? 'message-right' : 'message-left'
               }`}
             >
-              {message.text}
+              {message.userName} <br />
+              {message.text} <br />
+              {message.createdAt}
             </div>
           ))}
           {Array.isArray(newMessage) &&
-            newMessage.map((nwMsg, index) => (
-              <div
-                key={index}
-                className={`message ${
-                  nwMsg.userID === userID ? 'message-right' : 'message-left'
-                }`}
-              >
-                {nwMsg.text}
-              </div>
-            ))}
+  newMessage.map((nwMsg, index) => {
+    console.log('nwMsg:', nwMsg); // Agrega esta línea
+    return (
+      <div
+        key={index}
+        className={`message ${
+          nwMsg.userID === userID ? 'message-right' : 'message-left'
+        }`}
+      >
+        {nwMsg.userName.data.userName}
+        {nwMsg.text}
+      </div>
+    );
+  })}
         </div>
       </div>
 
@@ -117,7 +141,7 @@ const Chat = () => {
             <input
               type="text"
               value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
+              onChange={  (e) => setInputMessage(e.target.value)}
             />
           </label>
 

@@ -122,4 +122,14 @@ const profile = async (req, res) => {
   // REMOVE-END
 };
 
-module.exports = { create, login, logout, profile }
+
+const getUserName = async (req,res) => {
+  let userIDForUserName = req.params.userID;
+  console.log('USER ID FROM GET USER NAME: ',userIDForUserName)
+  const userNameFoundByID = await User.findById(userIDForUserName)
+
+  res.json({userName: userNameFoundByID.name})
+
+}
+
+module.exports = { create, login, logout, profile,getUserName }

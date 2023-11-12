@@ -60,7 +60,7 @@ async function getModels (url) {
       },      
     })
 
-    const result = await response.json()
+    let result = await response.json()
 
     if (response.ok) {
  
@@ -74,8 +74,36 @@ async function getModels (url) {
   }
 }
 
+async function getUserName(url) {
+  console.log('1')
+  console.log(url)
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+
+    console.log('2')
+    let result = await response.json();
+    console.log('3')
+
+    if (response.ok) {
+ 
+      return { error: false, data: result};
+    } else {
+      return { error: true, message: result.message };
+    }
+
+  } catch (error) {
+    
+  }
+}
+
 module.exports = {
   login,
   register,
-  getModels
+  getModels,
+  getUserName
 }

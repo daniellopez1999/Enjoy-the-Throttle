@@ -9,6 +9,7 @@ router.post('/register', userController.create);
 router.post('/login', userController.login);
 router.post('/logout', userController.logout)
 router.get('/profile', authRequired,userController.profile)
+router.get('/getUserName/:userID', userController.getUserName)
 
 
 //create group, join group, get all groups
