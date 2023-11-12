@@ -9,9 +9,24 @@ const urlJoinGroup = 'http://localhost:3001/joinGroup';
 
 
 const CreateGroup = () => {
+  
   const [groupName, setGroupName] = useState('');
-
+  
+  const userIDChecker = localStorage.getItem('id');
   const navigate = useNavigate();
+  useEffect(() => {
+    const checkIfUserLoggedIn = () => {
+      if (!userIDChecker) {
+        console.log('No user ID found');
+        navigate('/');
+      } else {
+        console.log(userIDChecker)
+      }
+    };
+
+    checkIfUserLoggedIn();
+  }, [userIDChecker, navigate]);
+
 
   const handleJoinGroup = async (e) => {
     e.preventDefault();

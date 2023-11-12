@@ -6,11 +6,23 @@ import { getListOfGroups } from './requests/group';
 const baseURL = 'http://localhost:3001/getAllGroups/'
 
 const ListOfGroups = () => {
+  const userIDChecker = localStorage.getItem('id');
+  const navigate = useNavigate();
+  const checkIfUserLoggedIn = () => {
+    if (!userIDChecker) {
+      console.log('No user ID found');
+      return false;
+      navigate('/');
+    } else {
+      console.log(userIDChecker)
+      return true
+    }
+  };
+
 
   const [list, setList] = useState([]);
 
     const userID = localStorage.getItem('id')
-    const navigate = useNavigate();
 
   const getList = async (id) => {
     const URL = `${baseURL}${id}`
@@ -27,7 +39,12 @@ const ListOfGroups = () => {
 
 
   useEffect(() => {
-    getList(userID)
+    const loggedIn = checkIfUserLoggedIn()
+    if(loggedIn) {
+      getList(userID)
+    } else {
+      navigate('/');
+    }
   }, [userID])
 
 

@@ -1,8 +1,26 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const JoinOrCreateGroup = () => {
+
+  const userIDChecker = localStorage.getItem('id');
+  const navigate = useNavigate();
+  useEffect(() => {
+    const checkIfUserLoggedIn = () => {
+      if (!userIDChecker) {
+        console.log('No user ID found');
+        navigate('/');
+      } else {
+        console.log(userIDChecker)
+      }
+    };
+
+    checkIfUserLoggedIn();
+  }, [userIDChecker, navigate]);
+
   return (
     <div>
         <button type="button">

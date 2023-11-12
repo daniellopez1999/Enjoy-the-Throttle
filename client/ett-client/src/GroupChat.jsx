@@ -2,14 +2,23 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { postMessage, getMessages } from './requests/message';
+import { useNavigate } from 'react-router-dom';
+
 import './CSS/groupchat.css'
 
 const Chat = () => {
-//EXTRA TIME:
-  //Check if userID is in group
-    //If it's not, render ERROR
-    //If it's in the group, just normal render
   const userID = localStorage.getItem('id')
+  const navigate = useNavigate();
+
+  const checkIfUserLoggedIn = () => {
+    if (userID) {
+      console.log(userID)
+    } else { 
+      navigate('/')
+    }
+  }
+  checkIfUserLoggedIn();
+
   const URLPost = 'http://localhost:3001/postMessage'
   const URLGet = 'http://localhost:3001/getAllMessages'
 
@@ -19,14 +28,21 @@ const Chat = () => {
   
   useEffect(() => {
     // Esta función se ejecutará solo una vez al montar el componente
+    const isLoggedIn = checkIfUserLoggedIn()
+    if (!isLoggedIn) {
+      navigate('/')
+    } else {
+      getMessagesWhenLoaded();
+    }
+    
     const getMessagesWhenLoaded = async () => {
       const receivedMessages = await getMessages(URLGet, groupName);
       console.log(receivedMessages.message)
       setMessages(receivedMessages.message);
     };
 
-    getMessagesWhenLoaded();
   }, []); 
+      
   
   const handleSubmitMessage = async (e) => {
     e.preventDefault();

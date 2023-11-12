@@ -4,15 +4,32 @@ import { createGroupRequest, joinGroupRequest } from './requests/group';
 import { useNavigate } from 'react-router-dom';
 import { getModels } from './requests/user';
 
-
 const urlCreateGroup = 'http://localhost:3001/createGroup';
 
 const APIUrl = 'https://api.api-ninjas.com/v1/motorcycles?make='
 
 const validBikeTypes = ['Scooter', 'Naked bike', 'Sport','Custom / cruiser', 'ATV', 'Cross / motocross','Enduro / offroad', 'Classic','Minibike, cross','Trial','Allround','Touring']
 
+const userID = localStorage.getItem('id')
+
 
 const CreateGroup = () => {
+  const userIDChecker = localStorage.getItem('id');
+  const navigate = useNavigate();
+  useEffect(() => {
+    const checkIfUserLoggedIn = () => {
+      if (!userIDChecker) {
+        console.log('No user ID found');
+        navigate('/');
+      } else {
+        console.log(userIDChecker)
+      }
+    };
+
+    checkIfUserLoggedIn();
+  }, [userIDChecker, navigate]);
+
+
   const [groupName, setGroupName] = useState('');
   const [bikeBrand, setBikeBrand] = useState('');
   const [bikeModel, setBikeModel] = useState('');
@@ -22,7 +39,6 @@ const CreateGroup = () => {
   const [modelsByBrand, setModelsByBrand] = useState([]);
   const [mandatoryBike, setMandatoryBike] = useState(false);
 
-  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -80,7 +96,6 @@ const CreateGroup = () => {
   const handleSubmitGroup = async (e) => {
     e.preventDefault();
     console.log('hellooo')
-    const userID = localStorage.getItem('id')
     console.log(userID)
 
     //save in an object the groupData
