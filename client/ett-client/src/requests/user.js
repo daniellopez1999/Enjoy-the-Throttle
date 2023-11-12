@@ -75,8 +75,6 @@ async function getModels (url) {
 }
 
 async function getUserName(url) {
-  console.log('1')
-  console.log(url)
   try {
     const response = await fetch(url, {
       method: 'GET',

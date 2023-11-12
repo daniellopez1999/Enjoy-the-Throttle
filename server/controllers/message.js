@@ -39,7 +39,7 @@ const postMessage = async (req, res) => {
   console.log('USER ID: ',userID)
   console.log('GROUP ID: ', groupName)
   console.log('TEXT: ', text)
-  res.status(200).json({message: req.body})
+  //res.status(200).json({message: req.body})
 
   try {
     let newMessage = new Message({
@@ -48,12 +48,26 @@ const postMessage = async (req, res) => {
       text: text
     })
 
-    console.log(newMessage)
+    console.log('NIUUU MESSAGE',newMessage)
 
-    await newMessage.save();
+    const postNewMessage = await newMessage.save();
+    
+    const getCreatedAt = async (nwMessage) => {
+      console.log('created at llego',nwMessage)
+      const timestamp = await Message.findById(nwMessage._id)
+      console.log('TIIIMESTAMP',timestamp.createdAt)
+      res.json({createdAt: timestamp})
+    }
+
+    getCreatedAt(postNewMessage)
+
+
   } catch (error) {
     console.log(error)
   }
+
+
+
 }
 
 

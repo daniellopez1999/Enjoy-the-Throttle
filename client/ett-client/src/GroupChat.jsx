@@ -77,20 +77,26 @@ const Chat = () => {
       console.log('Username received', responseGetUserName)
     }
 
-    const messageDataSocket = {
-      userID: userID,
-      groupName: groupName,
-      text: inputMessage,
-      userName: responseGetUserName,
-    }
-
+    
     const responsePostMessage = await postMessage(URLPost, messageData);
-
+    
     if (responsePostMessage.error) {
       console.log(responsePostMessage.message);
     } else {
       console.log('Message posted in DB: ', responsePostMessage);
     }
+    
+    
+    const messageDataSocket = {
+      userID: userID,
+      groupName: groupName,
+      text: inputMessage,
+      userName: responseGetUserName,
+      createdAt: responsePostMessage.data.createdAt.createdAt
+    }
+
+    console.log(messageDataSocket)
+
 
     socket.emit('send_message', messageDataSocket);
 
@@ -118,7 +124,6 @@ const Chat = () => {
           ))}
           {Array.isArray(newMessage) &&
   newMessage.map((nwMsg, index) => {
-    console.log('nwMsg:', nwMsg); // Agrega esta línea
     return (
       <div
         key={index}
@@ -126,8 +131,10 @@ const Chat = () => {
           nwMsg.userID === userID ? 'message-right' : 'message-left'
         }`}
       >
-        {nwMsg.userName.data.userName}
-        {nwMsg.text}
+        {nwMsg.userName.data.userName} <br />
+        {nwMsg.text} <br />
+        {nwMsg.createdAt}
+        
       </div>
     );
   })}
