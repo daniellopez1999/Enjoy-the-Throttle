@@ -45,15 +45,13 @@ io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
 
   socket.on("join_group", (groupName) => {
-    // Unir al usuario al grupo especificado
+    // joins to the socket specific gorup
     socket.join(groupName);
-    console.log(`User ${socket.id} joined group ${groupName}`);
   });
 
   socket.on("send_message", (data) => {
     console.log('SOOOOOOOOCKET', data);
-    // Emitir el mensaje solo al grupo específico
-    io.to(data.groupName).emit('send_message', data);
+    io.to(data.groupName).emit('send_message', data); //this sends message only to specific group
   });
 });
 

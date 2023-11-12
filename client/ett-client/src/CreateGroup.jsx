@@ -117,7 +117,7 @@ const CreateGroup = () => {
     } else {
       console.log(createGroupResponse);
       console.log('Group Created');
-      navigate('/');
+      navigate('/joinorcreategroup');
     }
   }
 

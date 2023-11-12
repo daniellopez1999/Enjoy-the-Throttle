@@ -9,128 +9,123 @@ import './CSS/groupchat.css'
 const socket = io('http://localhost:3001');
 
 const Chat = () => {
-  const userID = localStorage.getItem('id')
-  
+  const userID = localStorage.getItem('id');
   const navigate = useNavigate();
-  if (userID) {
-    console.log(userID)
-  } else { 
-    navigate('/')
+
+  if (!userID) {
+    navigate('/');
   }
 
-  const URLPost = 'http://localhost:3001/postMessage'
-  const URLGet = 'http://localhost:3001/getAllMessages'
+  const URLPost = 'http://localhost:3001/postMessage';
+  const URLGet = 'http://localhost:3001/getAllMessages';
 
   const { groupName } = useParams();
-  const [messages, setMessages] = useState([]); //to get messages when loaded
+  const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const [newMessage, setNewMessage] = useState([]);
   const [isConnected, setIsConntected] = useState(false);
 
+  // Unir al usuario al grupo cuando el componente se monte
   useEffect(() => {
-    socket.on('connect', () => {
-      setIsConntected(true);
-      // Unir al usuario al grupo cuando el componente se monte
-      socket.emit('join_group', groupName);
-    });
+    socket.emit('join_group', groupName);
+    setIsConntected(true);
+  }, [groupName]);
+
+  const handleSocketConnect = () => {
+    setIsConntected(true);
+  };
+
+  useEffect(() => {
+    socket.on('connect', handleSocketConnect);
 
     socket.on('send_message', (data) => {
       setNewMessage((prevMessages) => [...prevMessages, data]);
     });
 
     return () => {
-      socket.off('connect');
+      socket.off('connect', handleSocketConnect);
       socket.off('send_message');
     };
   }, [groupName]);
-  
+
   useEffect(() => {
-    // Esta función se ejecutará solo una vez al montar el componente
+    // Obtener mensajes cuando el componente se monte o groupName cambie
     const getMessagesWhenLoaded = async () => {
       const receivedMessages = await getMessages(URLGet, groupName);
-      console.log(receivedMessages.message)
       setMessages(receivedMessages.message);
     };
 
     getMessagesWhenLoaded();
-  }, []); 
-  
+  }, [groupName]);
+
   const handleSubmitMessage = async (e) => {
     e.preventDefault();
-    //POST MESSAGE IN DB
     const messageData = {
       userID: userID,
       groupName: groupName,
       text: inputMessage,
-    }
+    };
 
-    const responsePostMessage = await postMessage(URLPost,messageData);
+    const responsePostMessage = await postMessage(URLPost, messageData);
 
     if (responsePostMessage.error) {
       console.log(responsePostMessage.message);
-
     } else {
       console.log('Message posted in DB: ', responsePostMessage);
-          // Update the messages state with the new message
-    // Set the new message for displaying in the UI
-    //setNewMessage(messageData);
     }
 
-    //POST MESSAGE IN SOCKET
     socket.emit('send_message', messageData);
 
-    setInputMessage('')
-  }
-  //primero, get de todos los mensajes existentes
-//messages where groupName = groupName
+    setInputMessage('');
+  };
 
-//luego implementar socket io para que todo sea a tiempo real
-//post de cada mensaje que se escribe en messagesDB
-//probablemente sockets deberian estar en useEffect
-
-return (
-  <>
-    <div id="container">
-      <div><h2>{isConnected ? 'CONECTADO' : 'NO CONECTADO'}</h2></div>
-      <div className="messages-list">
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`message ${message.userID === userID ? 'message-right' : 'message-left'}`}
-          >
-            {message.text}
-          </div>
-        ))}
-        {Array.isArray(newMessage) && newMessage.map((nwMsg, index) => {
-          console.log('Mapping newMessage:', nwMsg);
-          return (
+  return (
+    <>
+      <div id="container">
+        <div>
+          <h2>{isConnected ? 'CONECTADO' : 'NO CONECTADO'}</h2>
+        </div>
+        <div className="messages-list">
+          {messages.map((message, index) => (
             <div
               key={index}
-              className={`message ${nwMsg.userID === userID ? 'message-right' : 'message-left'}`}
+              className={`message ${
+                message.userID === userID ? 'message-right' : 'message-left'
+              }`}
             >
-              {nwMsg.text}
+              {message.text}
             </div>
-          );
-        })}
+          ))}
+          {Array.isArray(newMessage) &&
+            newMessage.map((nwMsg, index) => (
+              <div
+                key={index}
+                className={`message ${
+                  nwMsg.userID === userID ? 'message-right' : 'message-left'
+                }`}
+              >
+                {nwMsg.text}
+              </div>
+            ))}
+        </div>
       </div>
-    </div>
 
-    <div>
-      <form onSubmit={handleSubmitMessage}>
-        <label>
-          INPUT TEXT:
-          <input
-            type="text"
-            value={inputMessage}
-            onChange={(e) => setInputMessage(e.target.value)}
-          />
-        </label>
+      <div>
+        <form onSubmit={handleSubmitMessage}>
+          <label>
+            INPUT TEXT:
+            <input
+              type="text"
+              value={inputMessage}
+              onChange={(e) => setInputMessage(e.target.value)}
+            />
+          </label>
 
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  </>
-);
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </>
+  );
 };
 
 export default Chat;
