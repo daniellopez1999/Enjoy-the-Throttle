@@ -27,25 +27,22 @@ const Chat = () => {
   const [newMessage, setNewMessage] = useState([]);
   const [isConnected, setIsConntected] = useState(false);
 
-  const handleSocketConnect = () => {
-    setIsConntected(true);
-    setNewMessage([]);
-    console.log('Socket connected. newMessage:', newMessage);
-  };
-
   useEffect(() => {
-    socket.on('connect', handleSocketConnect);
+    socket.on('connect', () => {
+      setIsConntected(true);
+      // Unir al usuario al grupo cuando el componente se monte
+      socket.emit('join_group', groupName);
+    });
 
     socket.on('send_message', (data) => {
-      console.log('SOOOOCKET', data)
       setNewMessage((prevMessages) => [...prevMessages, data]);
     });
 
     return () => {
       socket.off('connect');
       socket.off('send_message');
-    }
-  }, [])
+    };
+  }, [groupName]);
   
   useEffect(() => {
     // Esta función se ejecutará solo una vez al montar el componente
