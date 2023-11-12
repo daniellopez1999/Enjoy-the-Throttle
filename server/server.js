@@ -44,16 +44,9 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
 
-  socket.on("join_group", (data) => {
-    socket.join(data) //data should be the id of the group
-  })
-
   socket.on("send_message", (data) => {
-
-    //socket.emit("receive_message", data)
-    socket.to(data.group).emit("receive_message", data) //broadcast emits to everyone except yourself
-
-
+    console.log('SOOOOOOOOCKET',data);
+    io.emit('send_message', data);
   })
 })
 
