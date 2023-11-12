@@ -88,46 +88,49 @@ const Chat = () => {
 //post de cada mensaje que se escribe en messagesDB
 //probablemente sockets deberian estar en useEffect
 
-  return (
-    <>
+return (
+  <>
     <div id="container">
       <div><h2>{isConnected ? 'CONECTADO' : 'NO CONECTADO'}</h2></div>
       <div className="messages-list">
-          {messages.map((message, index) => (
+        {messages.map((message, index) => (
+          <div
+            key={index}
+            className={`message ${message.userID === userID ? 'message-right' : 'message-left'}`}
+          >
+            {message.text}
+          </div>
+        ))}
+        {Array.isArray(newMessage) && newMessage.map((nwMsg, index) => {
+          console.log('Mapping newMessage:', nwMsg);
+          return (
             <div
               key={index}
-              className={`message ${message.userID === userID ? 'message-right' : 'message-left'}`}
+              className={`message ${nwMsg.userID === userID ? 'message-right' : 'message-left'}`}
             >
-              {message.text}
+              {nwMsg.text}
             </div>
-          ))}
-{Array.isArray(newMessage) && newMessage.map((nwMsg, index) => {
-  console.log('Mapping newMessage:', nwMsg);
-  return (
-    <div key={index} className={`message message-right`}>
-      {nwMsg.text}
-    </div>
-  );
-})}
-        </div>
+          );
+        })}
+      </div>
     </div>
 
     <div>
       <form onSubmit={handleSubmitMessage}>
         <label>
           INPUT TEXT:
-            <input
-              type="text"
-              value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
-            />
+          <input
+            type="text"
+            value={inputMessage}
+            onChange={(e) => setInputMessage(e.target.value)}
+          />
         </label>
-        
+
         <button type="submit">Submit</button>
       </form>
     </div>
-    </>
-  );
+  </>
+);
 };
 
 export default Chat;
