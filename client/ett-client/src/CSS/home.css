@@ -17,7 +17,7 @@ body {
   max-height: 800px;
 }
 
-#logo {
+#home-logo {
   min-width: 400px;
   max-width: 400px;
   min-height: 160px;
@@ -64,7 +64,7 @@ label {
   gap: 20px;
 }
 
-.login-button, .register-button {
+.login-button, #register-button {
   color: white;
   background-color: #333;
   border: none;
@@ -78,17 +78,17 @@ label {
   padding: 10px 20px; /* Ajusta según sea necesario */
 }
 
-.login-button:hover, .register-button:hover {
+.login-button:hover, #register-button:hover {
   background-color: #555;
 }
 
 /* Agrega esta regla para el enlace dentro del botón de Register */
-.register-button a {
+#register-button a {
   text-decoration: none;
   color: inherit;
 }
 
-.register-button:hover .register-link {
+#register-button:hover #register-link {
   color: white;
 }
 

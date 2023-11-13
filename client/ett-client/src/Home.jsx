@@ -45,7 +45,7 @@ const Home = () => {
   return (
     <div id='page-container'>
       <div id='nav-container'>
-        <img src={LogoPNGWhite} alt="Logo" id="logo"/>
+        <img src={LogoPNGWhite} alt="Logo" id="home-logo"/>
       </div>
       <div id="login-container">
         <form onSubmit={handleLogin}>
@@ -74,8 +74,8 @@ const Home = () => {
   
           <div className="button-group-login">
   <button type="submit" className="login-button">Login</button>
-  <button type="button" className="register-button">
-    <Link to="/register" className='register-link'>Register</Link>
+  <button type="button" id="register-button">
+    <Link to="/register" id='register-link'>Register</Link>
   </button>
 </div>
 

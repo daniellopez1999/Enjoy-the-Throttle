@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { register, getModels } from './requests/user';
+import LogoPNGWhite from './imgs/LogoPNGWhite.png'
+import './CSS/register.css'
 
 const URL = 'http://localhost:3001/register';
 const APIUrl = 'https://api.api-ninjas.com/v1/motorcycles?make='
@@ -93,96 +95,96 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h1>REGISTER</h1>
-      <div className="input-register-container">
+    <div id="register-page-container">
+      <div id='nav-container-registeer'>
+        <img src={LogoPNGWhite} alt="Logo" id="register-logo"/>
+      </div>
+      <div id="input-register-container">
         <form onSubmit={handleRegister}>
-          <label>
-            UserName:
+
+        <div className="input-register-group">
+          <label>UserName:</label>
             <input
               type="text"
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
               required
             />
-          </label>
+        </div>
 
-          <label>
-            Password:
+        <div className="input-register-group">
+          <label>Password:</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-          </label>
+        </div>
 
-          <label>
-            Brand:
+        <div className="input-register-group">
+          <label>Brand:</label>
             <input
               type="text"
               value={bikeBrand}
               onChange={(e) => setBikeBrand(e.target.value)}
               required
             />
-          </label>
 
-          <label>
-            Year:
+        </div>
+
+        <div className="input-register-group">
+          <label>Year</label>
             <input
               type="text"
               value={bikeYear}
               onChange={(e) => setBikeYear(e.target.value)}
               required
             />
-          </label>
-
-          <label>
-  Type:
-  <select
-    onChange={(e) => {
-      setBikeType(e.target.value);
-      setBikeModel(''); // Resetear bikeModel al cambiar bikeType
-    }}
-    value={bikeType}
-    required
-  >
-    <option value="">Seleccione un tipo</option>
-    {validBikeTypes.map((type, index) => (
-      <option key={index} value={type}>
-        {type}
-      </option>
-    ))}
-  </select>
-</label>
-
-<label>
-  Model:
-  <select
-    onChange={(e) => setBikeModel(e.target.value)}
-    value={bikeModel}
-    required
-  >
-    <option value="">Seleccione un modelo</option>
-    {modelsByBrand.filter(model => model.type === bikeType).map((model, index) => (
-      <option key={index} value={model.model}>
-        {model.model}
-      </option>
-    ))}
-  </select>
-</label>
-
-
-          
-
-          <label>
-            Fetch Models
-            <button type="button" onClick={() => getModelsByBrand(bikeBrand)}>
+          <button type="button" id="register-input-button" onClick={() => getModelsByBrand(bikeBrand)}>
               Fetch Models
             </button>
-          </label>
 
-          <button type="submit">Register</button>
+        </div>
+
+        <div className="input-register-group">
+          <label>Type:</label>
+            <select className='selector-register'
+              onChange={(e) => {
+                setBikeType(e.target.value);
+                setBikeModel(''); // Resetear bikeModel al cambiar bikeType
+              }}
+              value={bikeType}
+              required
+            >
+              <option value="">Seleccione un tipo</option>
+              {validBikeTypes.map((type, index) => (
+                <option key={index} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+        </div>
+
+        <div className="input-register-group">
+          <label>Model:</label>
+            <select className='selector-register'
+              onChange={(e) => setBikeModel(e.target.value)}
+              value={bikeModel}
+              required
+            >
+              <option value="">Seleccione un modelo</option>
+              {modelsByBrand.filter(model => model.type === bikeType).map((model, index) => (
+                <option key={index} value={model.model}>
+                  {model.model}
+                </option>
+              ))}
+            </select>
+        </div>
+
+        <div className="input-register-group" id ="register-input-button">
+          <button type="submit" id="button-press-register">Register</button>
+        </div>
         </form>
       </div>
     </div>
