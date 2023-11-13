@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import './CSS/joinorcreategroup.css'
+import LogoPNGWhite from './imgs/LogoPNGWhite.png'
 
 const JoinOrCreateGroup = () => {
 
@@ -22,18 +23,36 @@ const JoinOrCreateGroup = () => {
   }, [userIDChecker, navigate]);
 
   return (
-    <div>
-        <button type="button">
-        <Link to={"/listofgroups"}> Group List </Link>
-        </button>
-        {/* Campos del formulario de inicio de sesión */}
-        <button type="button">
-        <Link to={"/joingroup"}> Join Group </Link>
-        </button>
-        <button type="button">
-          <Link to={"/creategroup"}> Create Group </Link>
-        </button>
+<div className="page-container">
+  {/* Nav con el logo */}
+  <div className="nav-container">
+    <div className="nav-logo"><img src={LogoPNGWhite} alt="logo" id="logo"/></div>
+    <div className="button-container" id="button-nav">
+      <button type="button" className="nav-button" >
+        <Link to={"/listofgroups"} className="nav-link"><span>List of groups</span></Link>
+      </button>
     </div>
+  </div>
+
+  {/* Separator Line Horizontal */}
+  {/* Contenedor del botón Join Group */}
+  <div className="button-container">
+    <button type="button" className="nav-button">
+      <Link to={"/joingroup"} className="nav-link"><span>Join Group</span></Link>
+    </button>
+  </div>
+
+  {/* Separator Line Horizontal */}
+  <div className="separator-line-horizontal"></div>
+
+  {/* Contenedor del botón Create Group */}
+  <div className="button-container">
+    <button type="button" className="nav-button">
+      <Link to={"/creategroup"} className="nav-link"><span>Create Group</span></Link>
+    </button>
+  </div>
+</div>
+
   )
 }
 

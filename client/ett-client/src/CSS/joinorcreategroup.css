@@ -1,0 +1,88 @@
+/* Resto de tus estilos */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor principal de la página con diseño de cuadrícula */
+.page-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 20% 1fr 1fr;
+  background-color: #333;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Estilo del nav con el logo */
+.nav-container {
+  grid-row: 1;
+  grid-column: 1;
+  background-color: #333;
+  color: white;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Alinea los elementos a los extremos del contenedor */
+}
+
+/* Contenedor del botón Join Group y Create Group */
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  position: relative;
+}
+
+/* Línea separadora blanca */
+.separator-line-horizontal {
+  width: 100%;
+  height: 1px;
+  background-color: white;
+}
+
+/* Estilo de los botones de navegación */
+.nav-button {
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 5px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 25px;
+  min-width: 300px;
+  min-height: 70px;
+}
+
+/* Cambios de estilo al pasar el ratón sobre los botones */
+.nav-button:hover {
+  background-color: #555;
+}
+
+/* Estilo de los enlaces de navegación */
+.nav-link {
+  color: white;
+  text-decoration: none;
+}
+
+
+span {
+  color: black;
+}
+
+#logo {
+  width: 300px;
+  height: 100px;
+}
+
+/* Estilo específico para #button-nav dentro de nav-container */
+#button-nav {
+  display: flex;
+  align-items: center;
+}

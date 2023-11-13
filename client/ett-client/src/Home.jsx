@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {login} from './requests/user'
-//import Cookies from 'js-cookie'
+import './CSS/home.css'
+import LogoPNGWhite from './imgs/LogoPNGWhite.png'
 
 const URL = 'http://localhost:3001/login'
 
@@ -42,39 +43,48 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <h1>HOME</h1>
-      <div className="input-login-container">
+    <div id='page-container'>
+      <div id='nav-container'>
+        <img src={LogoPNGWhite} alt="Logo" id="logo"/>
+      </div>
+      <div id="login-container">
         <form onSubmit={handleLogin}>
-          <label>
-            UserName:
+  
+          <div className="input-login-group">
+            <label>User name:</label>
             <input
               type="text"
+              id="userName"
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
               required
             />
-          </label>
-
-          <label>
-            Password:
+          </div>
+  
+          <div className="input-login-group">
+            <label>Password:</label>
             <input
               type="password"
+              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-          </label>
+          </div>
+  
+          <div className="button-group-login">
+  <button type="submit" className="login-button">Login</button>
+  <button type="button" className="register-button">
+    <Link to="/register" className='register-link'>Register</Link>
+  </button>
+</div>
 
-          <button type="submit">Login</button>
+  
         </form>
       </div>
-
-      <button type="button">
-        <Link to="/register">Register</Link>
-      </button>
     </div>
   );
+  
 };
 
 export default Home;
