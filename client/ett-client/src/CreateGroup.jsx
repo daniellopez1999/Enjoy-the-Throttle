@@ -99,7 +99,8 @@ const CreateGroup = () => {
   const handleSubmitGroup = async (e) => {
     e.preventDefault();
     console.log('hellooo')
-    console.log(userID)
+    let userIDtoSend = localStorage.getItem('id')
+    console.log(userIDtoSend)
 
     //save in an object the groupData
     const groupData = {
@@ -107,7 +108,7 @@ const CreateGroup = () => {
       bikeBrand: bikeBrand,
       bikeModel: bikeModel,
       mandatoryBike: mandatoryBike,
-      memberList: userID
+      memberList: userIDtoSend
     }
     console.log(groupData)
 

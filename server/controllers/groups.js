@@ -19,6 +19,7 @@ const createGroup = async (req, res) => {
 
   console.log(mandatoryBike)
   console.log(bikeBrand)
+  console.log('MEMBER:',memberList)
   try {
     const newGroup = new Group({
       groupName: groupName,
