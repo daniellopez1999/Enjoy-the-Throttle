@@ -1,0 +1,92 @@
+#join-group-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#join-group-nav-container {
+  margin-top: 20px;
+}
+.input-join-group-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh; /* Establece la altura del contenedor al 100% de la altura de la ventana */
+}
+
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.button-container ::placeholder{
+  color: white;
+}
+
+
+
+.input-button-join-group {
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 5px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 25px;
+  min-width: 300px;
+  min-height: 70px;
+}
+
+.input-button-join-group:hover {
+  background-color: #555;
+}
+
+#joingroup-submit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #908B8B;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 4px;
+  margin-top: 40px;
+  margin-bottom: 25px;
+  padding: 10px 5px;
+  min-width: 120px;
+  max-width: 120px;
+}
+
+#join-group-button {
+  border: none;
+  background: none;
+  color: white;
+  max-width: 200px;
+  transition-duration: 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#joingroup-submit-button:hover {
+  background-color: #555;
+}
+
+.trying-to-center-this-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

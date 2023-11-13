@@ -2,7 +2,8 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { joinGroupRequest } from './requests/group';
 import { useNavigate } from 'react-router-dom';
-
+import './CSS/joingroup.css'
+import LogoPNGWhite from './imgs/LogoPNGWhite.png'
 
 const urlJoinGroup = 'http://localhost:3001/joinGroup';
 
@@ -50,39 +51,33 @@ const CreateGroup = () => {
 
     console.log(joinGPResponse)
 
-    //do post to create group, and add to memberList the id from localStorage (userID)
-  //   const createGroupResponse = await createGroupRequest(urlCreateGroup, groupData);
 
-  //   if (createGroupResponse.error) {
-  //     console.log(createGroupResponse.message);
-  //     navigate('/creategroup');
-  //   } else {
-  //     console.log(createGroupResponse);
-  //     console.log('Group Created');
-  //     navigate('/');
-  //   }
-  // }
 }
 
   return (
-    <div>
-    <h1>JOIN GORUP</h1>
+    <div id="join-group-container">
+      <div id="join-group-nav-container">
+          <div className="nav-logo"><img src={LogoPNGWhite} alt="logo" id="logo-join-or-create"/></div>
+      </div>
 
-    <div className="input-creategroup-container">
+    <div className="input-join-group-container">
       <form onSubmit={handleJoinGroup}>
 
-        <label>
-          Group Name:
-          <input
+<div className='button-container'>
+          <input className='input-button-join-group'
             type="text"
             value={groupName}
             onChange={(e) => setGroupName(e.target.value)}
+            placeholder='Enter group name...'
             required
           />
-        </label>
+      <div className="trying-to-center-this-div">
+        <div id="joingroup-submit-button">
+        <button id="join-group-button" type="submit">Submit</button>
+        </div>
+        </div>
+          </div>
 
-        
-        <button type="submit">Submit</button>
       </form>
       </div>
     </div>
