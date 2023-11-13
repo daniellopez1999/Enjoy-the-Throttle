@@ -138,10 +138,11 @@ const Chat = () => {
                 message.userID === userID ? 'message-right' : 'message-left'
               }`}
             >
-              <div>{message.userName}:</div>
+              <div id="contentofthemessage">
+              <div id="message-user-name-span"><span id="strong-word">{message.userName}:</span></div>
               <div>{message.text}</div>
-              <div>{formatDateTime(message.createdAt)}</div>
-              
+              <div id="dateTimeChat"><span>{formatDateTime(message.createdAt)}</span></div>
+              </div>
               
             </div>
           ))}
@@ -154,9 +155,9 @@ const Chat = () => {
           nwMsg.userID === userID ? 'message-right' : 'message-left'
         }`}
       >
-        <div>{nwMsg.userName.data.userName}</div>
+        <div><span id="strong-word">{nwMsg.userName.data.userName}</span></div>
         <div>{nwMsg.text}</div>
-        <div>{formatDateTime(nwMsg.createdAt)}</div>
+        <div id="dateTimeChat">{formatDateTime(nwMsg.createdAt)}</div>
         
       </div>
     );
