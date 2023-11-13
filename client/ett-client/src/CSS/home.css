@@ -27,11 +27,14 @@ body {
 #login-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-top: 20px;
-  border: 1px solid red;
   padding: 20px;
   background-color: #FFFFFF;
   border-radius: 5px;
+  min-height: 280px;
+  min-width: 320px;
 }
 
 .input-login-group {
@@ -89,6 +92,10 @@ label {
 }
 
 #register-button:hover #register-link {
+  color: white;
+}
+
+#register-button span {
   color: white;
 }
 

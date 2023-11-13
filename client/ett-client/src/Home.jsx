@@ -74,9 +74,11 @@ const Home = () => {
   
           <div className="button-group-login">
   <button type="submit" className="login-button">Login</button>
+    <Link to="/register" id='register-link'>
   <button type="button" id="register-button">
-    <Link to="/register" id='register-link'>Register</Link>
+  <span>Register</span>
   </button>
+  </Link>
 </div>
 
   

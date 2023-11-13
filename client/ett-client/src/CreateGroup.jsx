@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react';
 import { createGroupRequest, joinGroupRequest } from './requests/group';
 import { useNavigate } from 'react-router-dom';
 import { getModels } from './requests/user';
+import './CSS/creategroup.css'
+import LogoPNGWhite from './imgs/LogoPNGWhite.png'
+
 
 const urlCreateGroup = 'http://localhost:3001/createGroup';
 
@@ -123,96 +126,96 @@ const CreateGroup = () => {
 
   return (
     <div>
-    <h1>REGISTER</h1>
     <div className="input-creategroup-container">
+      <div id='nav-creategroup-container'>
+      <img src={LogoPNGWhite} alt="Logo" id="create-group-logo"/>
+      </div>
+      <div id="input-create-group-container">
       <form onSubmit={handleSubmitGroup}>
-        <label>
-          Group Name:
+
+      <div className="input-create-group-group">
+        <label>Group Name:</label>
           <input
             type="text"
             value={groupName}
             onChange={(e) => setGroupName(e.target.value)}
             required
           />
-        </label>
+        </div>
 
-        <label>
-          Mandatory Bike:
+        <div className="input-create-group-group">
+        <label>Mandatory Bike:</label>
           <input
             type="checkbox"
             checked={mandatoryBike}
             onChange={(e) => setMandatoryBike(e.target.checked)}
           />
-        </label>
+        </div>
 
-        <label>
-            Brand:
+
+        <div className="input-create-group-group">
+        <label>Brand:</label>
             <input
               type="text"
               value={bikeBrand}
               onChange={(e) => setBikeBrand(e.target.value)}
               
             />
-          </label>
-
-          <label>
-            Year:
+        </div>
+          
+        <div className="input-create-group-group">
+          <label>Year:</label>
             <input
               type="text"
               value={bikeYear}
               onChange={(e) => setBikeYear(e.target.value)}
               
             />
-          </label>
-
-          <label>
-  Type:
-  <select
-    onChange={(e) => {
-      setBikeType(e.target.value);
-      setBikeModel(''); // Resetear bikeModel al cambiar bikeType
-    }}
-    value={bikeType}
-    
-  >
-    <option value="">Seleccione un tipo</option>
-    {validBikeTypes.map((type, index) => (
-      <option key={index} value={type}>
-        {type}
-      </option>
-    ))}
-  </select>
-</label>
-
-<label>
-  Model:
-  <select
-    onChange={(e) => setBikeModel(e.target.value)}
-    value={bikeModel}
-    
-  >
-    <option value="">Seleccione un modelo</option>
-    {modelsByBrand.filter(model => model.type === bikeType).map((model, index) => (
-      <option key={index} value={model.model}>
-        {model.model}
-      </option>
-    ))}
-  </select>
-</label>
-
-
-          
-
-          <label>
-            Fetch Models
-            <button type="button" onClick={() => getModelsByBrand(bikeBrand)}>
+          <button type="button" id="creategroup-input-button" onClick={() => getModelsByBrand(bikeBrand)}>
               Fetch Models
             </button>
-          </label>
+        </div>
+          
+        <div className="input-create-group-group">
+          <label>Type:</label>
+            <select className='selector-register'
+              onChange={(e) => {
+                setBikeType(e.target.value);
+                setBikeModel(''); // Resetear bikeModel al cambiar bikeType
+              }}
+              value={bikeType}
+              
+            >
+              <option value="">Seleccione un tipo</option>
+              {validBikeTypes.map((type, index) => (
+                <option key={index} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
+        </div>
 
+        <div className="input-create-group-group">
+          <label>Model:</label>
+            <select className='selector-register'
+              onChange={(e) => setBikeModel(e.target.value)}
+              value={bikeModel}
+              
+            >
+              <option value="">Seleccione un modelo</option>
+              {modelsByBrand.filter(model => model.type === bikeType).map((model, index) => (
+                <option key={index} value={model.model}>
+                  {model.model}
+                </option>
+              ))}
+            </select>
+        </div>
 
-        <button type="submit">Submit</button>
+        <div className="input-create-group-group">
+          <button type="submit" id="creategroup-input-button">Submit</button>
+        </div>
       </form>
+      </div>
       </div>
     </div>
   )

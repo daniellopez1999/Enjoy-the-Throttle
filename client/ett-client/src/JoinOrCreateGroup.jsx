@@ -23,33 +23,40 @@ const JoinOrCreateGroup = () => {
   }, [userIDChecker, navigate]);
 
   return (
-<div className="page-container">
+<div className="page-container" id="join-or-create-cont">
   {/* Nav con el logo */}
   <div className="nav-container">
     <div className="nav-logo"><img src={LogoPNGWhite} alt="logo" id="logo-join-or-create"/></div>
     <div className="button-container" id="button-nav">
+        <Link to={"/listofgroups"} className="nav-link">
       <button type="button" className="nav-button" >
-        <Link to={"/listofgroups"} className="nav-link"><span>List of groups</span></Link>
+      <span>List of groups</span>
       </button>
+      </Link>
     </div>
   </div>
 
   {/* Separator Line Horizontal */}
   {/* Contenedor del botón Join Group */}
   <div className="button-container">
-    <button type="button" className="nav-button">
-      <Link to={"/joingroup"} className="nav-link"><span>Join Group</span></Link>
+      <Link to={"/joingroup"} className="nav-link">
+        <button type="button" className="nav-button">
+        <span>Join Group</span>
     </button>
+    </Link>
   </div>
 
-  {/* Separator Line Horizontal */}
-  <div className="separator-line-horizontal"></div>
 
   {/* Contenedor del botón Create Group */}
-  <div className="button-container">
+
+<div className='btn-ctn-jc'>
+<div className="button-container">
+  <Link to="/creategroup" className="nav-link">
     <button type="button" className="nav-button">
-      <Link to={"/creategroup"} className="nav-link"><span>Create Group</span></Link>
+      <span>Create Group</span>
     </button>
+  </Link>
+</div>
   </div>
 </div>
 
