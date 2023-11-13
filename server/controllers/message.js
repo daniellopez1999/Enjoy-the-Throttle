@@ -52,6 +52,7 @@ const postMessage = async (req, res) => {
 
     const postNewMessage = await newMessage.save();
     
+    //After posting Message, as timestamp is created in DB, gets the message with the ID and res timestamp
     const getCreatedAt = async (nwMessage) => {
       console.log('created at llego',nwMessage)
       const timestamp = await Message.findById(nwMessage._id)
