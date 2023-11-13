@@ -118,9 +118,26 @@ const joinGroup = async (req, res) => {
               return res.json({error: "User doesn't have the mandatory bike."}).status(500)
             }
 
-            //else reject
           } else { 
-              console.log ('not mandatory bike')
+            //NOT MANDATORY BIKE, CREATE GROUP              
+              await User.findByIdAndUpdate(userID, {$push: {groupList: groupName}},
+                { new : true })
+            
+                .then((updatedUser) => {
+                  console.log('User Updated with groupName', updatedUser);
+                }).catch((error) => {
+                  console.log('Could not add group to the groupList of the user', error)
+                })
+              
+              //add userID to memberList in the user Group table
+              await Group.findOneAndUpdate({_id: groupID}, {$push: {memberList: userID}},
+              {new : true})
+                .then((updatedGroup) => {
+                  console.log('Group Updated with userID into memberList', updatedGroup);
+                }).catch((error) => {
+                  console.log('Could not add group to the groupList of the user', error)
+                })
+
           }
         }
         
