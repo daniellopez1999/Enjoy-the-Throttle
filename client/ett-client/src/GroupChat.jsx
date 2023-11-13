@@ -105,7 +105,7 @@ const Chat = () => {
 
   return (
       <div id="group-chat-container">
-        <div id="container-messages-and-input">
+        <div id="container-group-name-messages-and-input">
         <div id="chat-info-messages-container">
           <div id="group-name-chat">
             <h1>{groupName}</h1>
@@ -120,9 +120,11 @@ const Chat = () => {
                 message.userID === userID ? 'message-right' : 'message-left'
               }`}
             >
-              {message.userName} <br />
-              {message.text} <br />
-              {message.createdAt}
+              <div>{message.userName}:</div>
+              <div>{message.text}</div>
+              <div>{message.createdAt}</div>
+              
+              
             </div>
           ))}
           {Array.isArray(newMessage) &&
@@ -134,20 +136,21 @@ const Chat = () => {
           nwMsg.userID === userID ? 'message-right' : 'message-left'
         }`}
       >
-        {nwMsg.userName.data.userName} <br />
-        {nwMsg.text} <br />
-        {nwMsg.createdAt}
+        <div>{nwMsg.userName.data.userName}</div>
+        <div>{nwMsg.text}</div>
+        <div>{nwMsg.createdAt}</div>
         
       </div>
     );
   })}
         </div>
-      <div>
+      <div id="general-input-btn-container">
         <form onSubmit={handleSubmitMessage}>
           <div id="input-sendbtn-container">
             <input
               type="text"
               value={inputMessage}
+              placeholder='Write a message here'
               onChange={  (e) => setInputMessage(e.target.value)}
             />
 

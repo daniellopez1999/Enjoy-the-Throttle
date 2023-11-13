@@ -26,32 +26,42 @@
 
 #chat-info-messages-container {
   margin-top: 25px;
-  background-color: #908B8B;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #908B8B;
   height: 15%; 
 }
 #group-name-chat{
   display: flex;
+  border-radius: 20px;
   justify-content: center;
   align-items: center;
   max-width: 500px;
+  min-width: 500px;
 }
 
 .messages-list {
   display: flex;
   flex-direction: column;
-  overflow-y: auto; /* Esto permite el desplazamiento vertical si es necesario */
-  height: 70% /* Esto permite el desplazamiento vertical si es necesario */
+  overflow-y: auto;
+  height: 70%;
+  margin-top: 10px;
+
+  background-color: #908B8B;
+
 }
 
 .message {
   width: 100%;
   margin-bottom: 10px;
   padding: 8px;
-  border-radius: 5px;
-  max-width: 70%;
+  border-radius: 10px;
+  max-width: 40%; /* Ajusta según sea necesario */
+  min-width: 15%; /* Ajusta según sea necesario */
+  word-wrap: break-word; /* Romper palabras largas para evitar desbordamiento */
+  overflow-wrap: break-word; /* Romper palabras en navegadores más modernos */
+  box-sizing: border-box;
 }
 
 .message-left {
@@ -63,8 +73,55 @@
   align-self: flex-end;
 }
 
+
 #input-sendbtn-container {
   margin-top: 25px;
   margin-bottom: 25px;
   height: 15%; 
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  
+}
+
+#input-sendbtn-container input {
+  margin-right: 20px;
+  background-color: white;
+  color: black;
+  border-radius: 40px;
+  width: 40% /* Ajusta según sea necesario para la separación deseada */
+}
+
+#input-sendbtn-container button {
+  padding: 10px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+#general-input-btn-container {
+  background-color: #908B8B;
+  margin-bottom: 10px;
+}
+
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(255, 255, 255);
 }
