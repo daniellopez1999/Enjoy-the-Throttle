@@ -1,15 +1,18 @@
 // Chat.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { postMessage, getMessages } from './requests/message';
 import { getUserName } from './requests/user';
 import { useNavigate } from 'react-router-dom';
 import {io} from 'socket.io-client'
 import './CSS/groupchat.css'
+import sendMsgLogo from './imgs/send-alt-1-svgrepo-com.png'
 
 const socket = io('http://localhost:3001');
 
 const Chat = () => {
+
+
   const userID = localStorage.getItem('id');
   const navigate = useNavigate();
 
@@ -35,6 +38,15 @@ const Chat = () => {
   const handleSocketConnect = () => {
     setIsConntected(true);
   };
+
+  const messagesListRef = useRef();
+
+  useEffect(() => {
+    // Hacer scroll hacia abajo cada vez que se actualiza el estado de los mensajes
+    if (messagesListRef.current) {
+      messagesListRef.current.scrollTop = messagesListRef.current.scrollHeight;
+    }
+  }, [messages, newMessage]);
 
   useEffect(() => {
     socket.on('connect', handleSocketConnect);
@@ -101,6 +113,7 @@ const Chat = () => {
     socket.emit('send_message', messageDataSocket);
 
     setInputMessage('');
+
   };
 
   return (
@@ -112,7 +125,7 @@ const Chat = () => {
           </div>
 
         </div>
-        <div className="messages-list">
+        <div className="messages-list" id="messages-list-to-scroll" ref={messagesListRef}>
           {messages.map((message, index) => (
             <div
               key={index}
@@ -154,7 +167,7 @@ const Chat = () => {
               onChange={  (e) => setInputMessage(e.target.value)}
             />
 
-          <button type="submit">Submit</button>
+          <button type="submit" id="submitMessagebtn"><img src={sendMsgLogo} alt="sendMsgLogo" className="sndMsgLogo"/></button>
           </div>
         </form>
         </div>

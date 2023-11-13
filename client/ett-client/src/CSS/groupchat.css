@@ -6,7 +6,6 @@
 }
 
 #container-group-name-messages-and-input {
-  background-color: white;
   margin-left: 20px;
   margin-right: 20px;
   height: 100%;
@@ -25,20 +24,26 @@
 }
 
 #chat-info-messages-container {
-  margin-top: 25px;
+  margin-top: 10px;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  background-color: #908B8B;
+  background-color: #D9D9D9;
   height: 15%; 
 }
 #group-name-chat{
-  display: flex;
-  border-radius: 20px;
-  justify-content: center;
-  align-items: center;
   max-width: 500px;
+  max-height: 80%;
+  min-height: 80%;
+  background-color: white;
+  border-radius: 15px;
+  margin-left: 30px;
   min-width: 500px;
+  color: black;
+}
+
+#group-name-chat h1{
+  margin-left: 20px;
 }
 
 .messages-list {
@@ -48,7 +53,7 @@
   height: 70%;
   margin-top: 10px;
 
-  background-color: #908B8B;
+  background-color: #D9D9D9;
 
 }
 
@@ -62,15 +67,23 @@
   word-wrap: break-word; /* Romper palabras largas para evitar desbordamiento */
   overflow-wrap: break-word; /* Romper palabras en navegadores más modernos */
   box-sizing: border-box;
+
 }
 
 .message-left {
-  background-color: #e0e0e0;
+  background-color: white;
 }
 
 .message-right {
   background-color: #b2ffd4;
   align-self: flex-end;
+}
+
+
+#general-input-btn-container {
+  background-color: #D9D9D9;
+  margin-bottom: 10px;
+  margin-top:10px;
 }
 
 
@@ -101,9 +114,19 @@
   cursor: pointer;
 }
 
-#general-input-btn-container {
-  background-color: #908B8B;
-  margin-bottom: 10px;
+#submitMessagebtn {
+  border: none;
+  background: none;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sndMsgLogo {
+  max-width: 20px;
+  max-height: 20px;
 }
 
 
@@ -124,4 +147,14 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgb(255, 255, 255);
+}
+
+/* Aplica estilos cuando el input está enfocado */
+input:focus {
+  outline: none;
+}
+
+/* Estilos para ocultar el marcador de posición cuando el input está enfocado */
+input:focus::placeholder {
+  color: transparent;
 }
