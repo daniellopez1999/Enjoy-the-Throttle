@@ -29,7 +29,7 @@ const JoinOrCreateGroup = () => {
     <div className="nav-logo"><img src={LogoPNGWhite} alt="logo" id="logo-join-or-create"/></div>
     <div className="button-container" id="button-nav">
         <Link to={"/listofgroups"} className="nav-link">
-      <button type="button" className="nav-button" >
+      <button type="button" className="nav-button btn-joc-span">
       <span>List of groups</span>
       </button>
       </Link>

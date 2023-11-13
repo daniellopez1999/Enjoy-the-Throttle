@@ -104,10 +104,13 @@ const Chat = () => {
   };
 
   return (
-    <>
-      <div id="container">
-        <div>
-          <h2>{isConnected ? 'CONECTADO' : 'NO CONECTADO'}</h2>
+      <div id="group-chat-container">
+        <div id="container-messages-and-input">
+        <div id="chat-info-messages-container">
+          <div id="group-name-chat">
+            <h1>{groupName}</h1>
+          </div>
+
         </div>
         <div className="messages-list">
           {messages.map((message, index) => (
@@ -139,23 +142,22 @@ const Chat = () => {
     );
   })}
         </div>
-      </div>
-
       <div>
         <form onSubmit={handleSubmitMessage}>
-          <label>
-            INPUT TEXT:
+          <div id="input-sendbtn-container">
             <input
               type="text"
               value={inputMessage}
               onChange={  (e) => setInputMessage(e.target.value)}
             />
-          </label>
 
           <button type="submit">Submit</button>
+          </div>
         </form>
+        </div>
       </div>
-    </>
+
+      </div>
   );
 };
 
