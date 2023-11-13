@@ -2,6 +2,9 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getListOfGroups } from './requests/group';
+import './CSS/listofgroups.css'
+import LogoPNGWhite from './imgs/LogoPNGWhite.png'
+
 
 const baseURL = 'http://localhost:3001/getAllGroups/'
 
@@ -59,16 +62,20 @@ const ListOfGroups = () => {
   
 
   return (
-    <div>
-      <h1>Lista de grupos</h1>
-      <div>
-        {list.map((group, index) => (
-          <div key={index}>
-            <button onClick={() => handleGroupClick(group)}> 
-            {group}
-            </button>
-          </div>
-        ))}
+    <div id="list-of-groups-container">
+      <div id="list-of-groups-nav-container">
+          <div className="nav-logo"><img src={LogoPNGWhite} alt="logo" id="logo-join-or-create"/></div>
+      </div>
+      <div id="group-list-container">
+        <div className="list-of-groups-button-container">
+          {list.map((group, index) => (
+            <div key={index}>
+              <button className= "input-button-join-group-list-of-groups" onClick={() => handleGroupClick(group)}> 
+              {group}
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )

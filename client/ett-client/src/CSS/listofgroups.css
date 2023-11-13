@@ -1,0 +1,48 @@
+#list-of-groups-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#list-of-groups-nav-container {
+  margin-top: 25px;
+}
+
+#group-list-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+
+.list-of-groups-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 15px;
+  position: relative;
+}
+
+.input-button-join-group-list-of-groups {
+  color: black;
+  border: none;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 5px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 25px;
+  min-width: 300px;
+  min-height: 70px;
+}
+
+.input-button-join-group-list-of-groups:hover {
+  background-color: #555;
+  color: white;
+}
