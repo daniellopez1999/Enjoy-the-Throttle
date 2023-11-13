@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { postMessage, getMessages } from './requests/message';
 import { getUserName } from './requests/user';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment'
 import {io} from 'socket.io-client'
 import './CSS/groupchat.css'
 import sendMsgLogo from './imgs/send-alt-1-svgrepo-com.png'
@@ -11,6 +12,10 @@ import sendMsgLogo from './imgs/send-alt-1-svgrepo-com.png'
 const socket = io('http://localhost:3001');
 
 const Chat = () => {
+
+  const formatDateTime = (dateTime) => {
+    return moment(dateTime).format('HH:mm'); // Formato 'HH:mm' para mostrar solo la hora y los minutos
+  };
 
 
   const userID = localStorage.getItem('id');
@@ -135,7 +140,7 @@ const Chat = () => {
             >
               <div>{message.userName}:</div>
               <div>{message.text}</div>
-              <div>{message.createdAt}</div>
+              <div>{formatDateTime(message.createdAt)}</div>
               
               
             </div>
@@ -151,7 +156,7 @@ const Chat = () => {
       >
         <div>{nwMsg.userName.data.userName}</div>
         <div>{nwMsg.text}</div>
-        <div>{nwMsg.createdAt}</div>
+        <div>{formatDateTime(nwMsg.createdAt)}</div>
         
       </div>
     );
