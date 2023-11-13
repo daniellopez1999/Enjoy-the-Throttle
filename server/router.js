@@ -7,7 +7,7 @@ const authRequired = require('./middlewares/validateToken.js');
 //user register, login, getprofile, logout
 router.post('/register', userController.create);
 router.post('/login', userController.login);
-router.post('/logout', userController.logout)
+router.get('/logout', userController.logout)
 router.get('/profile', authRequired,userController.profile)
 router.get('/getUserName/:userID', userController.getUserName)
 

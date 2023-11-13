@@ -95,37 +95,39 @@ async function getUserName(url) {
     }
 
   } catch (error) {
-    
+    console.log(error)
   }
 }
 
-// async function getTimestamp(url) {
-//   try {
-//     const response = await fetch(url, {
-//       method: 'GET',
-//       headers: {
-//         "Content-Type": "application/json"
-//       },
-//     })
 
-//     console.log('2')
-//     let result = await response.json();
-//     console.log('3')
-
-//     if (response.ok) {
- 
-//       return { error: false, data: result};
-//     } else {
-//       return { error: true, message: result.message };
-//     }
-
-//   } catch (error) {
+async function logout(url) {
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: 'include'
+    })
     
-//   }
-// }
+    console.log('2')
+    let result = await response.json();
+    console.log('3')
+    if (response.ok) {
+      console.log(result)
+      return { error: false, data: result};
+    } else {
+      return { error: true, message: result.message };
+    }
+
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 module.exports = {
   login,
+  logout,
   register,
   getModels,
   getUserName,
