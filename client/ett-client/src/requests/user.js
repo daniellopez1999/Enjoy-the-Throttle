@@ -50,6 +50,8 @@ async function register (url, data) {
   }
 }
 
+//Saver X-Api-Key in another js file, take from that file and use as ${apiKey}
+
 async function getModels (url) {
   try {
     const response = await fetch(url, {

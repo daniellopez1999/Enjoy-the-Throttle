@@ -68,8 +68,6 @@ const CreateGroup = () => {
 
   const getModelsByBrand = async (brand) => {
     let offset = 0;
-    // let url = `${APIUrl}${brand}&type=${bikeType}&year=${bikeYear}&offset=${offset * 30}`
-    // console.log(url)
     let urlBikeType = bikeType.replace(' ', '%20')
     console.log(urlBikeType)
     const allModels = []
