@@ -41,12 +41,12 @@ const JoinOrCreateGroup = () => {
   <div className="nav-container">
     <div className="nav-logo"><img src={LogoPNGWhite} alt="logo" id="logo-join-or-create"/></div>
     
-    <div><button onClick={logOut}>LO</button></div>
+    <div><button type="button" className="button-container nav-button btn-joc-span" id="button-logout-css" onClick={logOut}>Log out</button></div>
 
     <div className="button-container" id="button-nav">
         <Link to={"/listofgroups"} className="nav-link">
       <button type="button" className="nav-button btn-joc-span">
-      <span>List of groups</span>
+      List of groups
       </button>
       </Link>
     </div>
@@ -57,7 +57,7 @@ const JoinOrCreateGroup = () => {
   <div className="button-container">
       <Link to={"/joingroup"} className="nav-link">
         <button type="button" className="nav-button">
-        <span>Join Group</span>
+        Join Group
     </button>
     </Link>
   </div>
@@ -69,7 +69,7 @@ const JoinOrCreateGroup = () => {
 <div className="button-container">
   <Link to="/creategroup" className="nav-link">
     <button type="button" className="nav-button">
-      <span>Create Group</span>
+      Create Group
     </button>
   </Link>
 </div>

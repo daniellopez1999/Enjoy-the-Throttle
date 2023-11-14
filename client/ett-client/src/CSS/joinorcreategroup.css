@@ -60,11 +60,15 @@ body {
   border-radius: 25px;
   min-width: 300px;
   min-height: 70px;
+  color: black;
 }
+
+
 
 /* Cambios de estilo al pasar el ratón sobre los botones */
 .nav-button:hover {
   background-color: #555;
+  color: white;
 }
 
 /* Estilo de los enlaces de navegación */
@@ -89,3 +93,15 @@ span {
   align-items: center;
 }
 
+
+#button-logout-css {
+  margin-left: 45px;
+  color: black;
+  max-width: 170px;
+  min-width: 170px;
+}
+
+
+#button-logout-css:hover {
+  color: white;
+}
