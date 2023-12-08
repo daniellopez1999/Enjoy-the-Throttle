@@ -33,3 +33,12 @@ Install the App to check more features and use it by yourself!
 ### 3. Run Client  
 #### cd client/ett-client  
 #### npm start  
+
+
+## Tech Stack
+- Socket.io (to send and receive live messages)
+- Mongoose
+- Express
+- React
+- Node
+
