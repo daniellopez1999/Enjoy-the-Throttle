@@ -1,78 +1,64 @@
-
-async function login (url,data) {
+async function login(url, data) {
   try {
     const response = await fetch(url, {
       method: 'POST',
       credentials: 'include',
 
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
-    })
+      body: JSON.stringify(data),
+    });
 
-    const result = await response.json()
+    const result = await response.json();
 
     if (response.ok) {
-      return { error: false, data: result};
-    } else {
-      return { error: true, message: result.message };
+      return { error: false, data: result };
     }
-
   } catch (error) {
-      return {error: true, message: error}
+    return { error: true, message: error };
   }
 }
 
-async function register (url, data) {
+async function register(url, data) {
   try {
     const response = await fetch(url, {
       method: 'POST',
       credentials: 'include',
 
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
-    })
+      body: JSON.stringify(data),
+    });
 
-    const result = await response.json()
+    const result = await response.json();
 
     if (response.ok) {
- 
-      return { error: false, data: result};
-    } else {
-      return { error: true, message: result.message };
+      return { error: false, data: result };
     }
-
   } catch (error) {
-      return {error: true, message: error}
+    return { error: true, message: error };
   }
 }
 
-//Saver X-Api-Key in another js file, take from that file and use as ${apiKey}
-
-async function getModels (url) {
+async function getModels(url) {
   try {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'X-Api-Key': 'Wgp1mwm8XB3PeUrejLLO3Q==pmqHC9BQDe22X2ce',
-        "Content-Type": "application/json"
-      },      
-    })
+        'Content-Type': 'application/json',
+      },
+    });
 
-    let result = await response.json()
+    let result = await response.json();
 
     if (response.ok) {
- 
-      return { error: false, data: result};
-    } else {
-      return { error: true, message: result.message };
+      return { error: false, data: result };
     }
-
   } catch (error) {
-      return {error: true, message: error}
+    return { error: true, message: error };
   }
 }
 
@@ -81,49 +67,36 @@ async function getUserName(url) {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
       },
-    })
+    });
 
-    console.log('2')
     let result = await response.json();
-    console.log('3')
 
     if (response.ok) {
- 
-      return { error: false, data: result};
-    } else {
-      return { error: true, message: result.message };
+      return { error: false, data: result };
     }
-
   } catch (error) {
-    console.log(error)
+    console.error(error);
   }
 }
-
 
 async function logout(url) {
   try {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
       },
-      credentials: 'include'
-    })
-    
-    console.log('2')
-    let result = await response.json();
-    console.log('3')
-    if (response.ok) {
-      console.log(result)
-      return { error: false, data: result};
-    } else {
-      return { error: true, message: result.message };
-    }
+      credentials: 'include',
+    });
 
+    let result = await response.json();
+    if (response.ok) {
+      return { error: false, data: result };
+    }
   } catch (error) {
-    console.log(error)
+    console.error(error);
   }
 }
 
@@ -134,4 +107,4 @@ module.exports = {
   getModels,
   getUserName,
   // getTimestamp
-}
+};
